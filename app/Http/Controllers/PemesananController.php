@@ -242,6 +242,7 @@ class PemesananController extends Controller
         // Update kode foto pada pemesanan
         $pemesanan->update([
             'code_foto' => $request->code_foto,
+            'status_pemesanan' => 'batal'
         ]);
 
         // Redirect ke route pemesanans.index dengan pesan sukses

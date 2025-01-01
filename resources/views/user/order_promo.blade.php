@@ -84,7 +84,7 @@
                     <input type="hidden" name="id_paket" value="{{ $promo->id }}">
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary me-2">Buat Pesanan</button>
-                        <button type="button" class="btn btn-secondary">Masukkan Keranjang</button>
+                        {{-- <button type="button" class="btn btn-secondary">Masukkan Keranjang</button> --}}
                     </div>
                 </div>
             </div>

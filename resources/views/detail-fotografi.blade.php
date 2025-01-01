@@ -42,7 +42,7 @@
                     <p>Tenaga Kerja: <span id="tenaga-kerja">{{ $fotografi->tenaga_kerja_spesial }}</span></p>
                     <p>Waktu Kerja: <span id="waktu-kerja">{{ $fotografi->waktu_spesial }}</span> jam</p>
                     <p>Penyimpanan: <span id="penyimpanan">{{ $fotografi->penyimpanan_special }}</span></p>
-                    <p>Deskripsi Paket: {{ $fotografi->deskripsi }}</p>
+                    <p>Deskripsi Paket: <span id="deskripsi">{{ $fotografi->deskripsi_spesial }}</span> </p>
                 </div>
                 <!-- Link Pesan Sekarang -->
                 <!-- Link Pesan Sekarang -->
@@ -66,6 +66,8 @@
                 "{{ $fotografi->waktu_spesial }}";
             document.getElementById('penyimpanan').innerText =
                 "{{ $fotografi->penyimpanan_special }}";
+            document.getElementById('deskripsi').innerText =
+                "{{ $fotografi->deskripsi_spesial }}";
             selectedPackage = 'special';
             updatePesanSekarangLink();
         });
@@ -80,6 +82,8 @@
                 "{{ $fotografi->waktu_platinum }}";
             document.getElementById('penyimpanan').innerText =
                 "{{ $fotografi->penyimpanan_platinum }}";
+                document.getElementById('deskripsi').innerText =
+                "{{ $fotografi->deskripsi_platinum }}";
             selectedPackage = 'platinum';
             updatePesanSekarangLink();
         });

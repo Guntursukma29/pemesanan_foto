@@ -44,10 +44,10 @@
                                                     <span class="badge bg-info">Menunggu Pelaksanaan</span>
                                                 @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
                                                     <span class="badge bg-secondary">Menunggu Hasil Dokumentasi</span>
-                                                @elseif ($pemesanan->status_pemesanan === 'selesai')
-                                                    <span class="badge bg-success">Selesai</span>
-                                                @else
+                                                @elseif ($pemesanan->status_pemesanan === 'batal')
                                                     <span class="badge bg-info">Menunggu Hasil Edit</span>
+                                                @else
+                                                    <span class="badge bg-success">selesai</span>
                                                 @endif
                                             </td>
 
@@ -253,7 +253,7 @@
                                                                     @csrf
                                                                     <div class="mb-3">
                                                                         <label for="code_foto" class="form-label">Masukkan
-                                                                            Kode Foto</label>
+                                                                            Kode Foto edit</label>
                                                                         <input type="text" name="code_foto"
                                                                             id="code_foto" class="form-control"
                                                                             placeholder="Masukkan kode foto" required>

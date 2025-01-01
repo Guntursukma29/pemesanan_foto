@@ -24,8 +24,8 @@ class Videografi extends Model
         'waktu_platinum',
         'penyimpanan_special',
         'penyimpanan_platinum',
-        'deskripsi',
-    ];
+        'deskripsi_spesial',
+        'deskripsi_platinum'    ];
    
     public function pemesanans()
     {

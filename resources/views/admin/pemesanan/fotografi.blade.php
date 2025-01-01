@@ -65,6 +65,13 @@
                                                         data-bs-target="#inputFotograferModal{{ $pemesanan->id }}">
                                                         Ubah Fotografer
                                                     </button>
+                                                    <form method="POST"
+                                                    action="{{ route('reminder.pemesanan', $pemesanan->id) }}"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-info">Kirim
+                                                        Reminder</button>
+                                                </form>
                                                 @elseif ($pemesanan->status_pemesanan === 'proses' && $pemesanan->status_pembayaran === 'dibayar')
                                                     <button type="button" class="btn btn-sm btn-success"
                                                         data-bs-toggle="modal"

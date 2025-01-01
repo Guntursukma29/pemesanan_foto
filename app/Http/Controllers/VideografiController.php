@@ -25,15 +25,16 @@ class VideografiController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'harga_special' => 'required|numeric',
-            'harga_platinum' => 'required|numeric',
-            'tenaga_kerja_spesial' => 'required|integer',
-            'tenaga_kerja_platinum' => 'required|integer',
-            'waktu_spesial' => 'required|integer',
-            'waktu_platinum' => 'required|integer',
-            'penyimpanan_special' => 'required|string',
-            'penyimpanan_platinum' => 'required|string',
-            'deskripsi' => 'nullable|string',
+            'harga_special' => 'nullable|numeric',
+            'harga_platinum' => 'nullable|numeric',
+            'tenaga_kerja_spesial' => 'nullable|integer',
+            'tenaga_kerja_platinum' => 'nullable|integer',
+            'waktu_spesial' => 'nullable|integer',
+            'waktu_platinum' => 'nullable|integer',
+            'penyimpanan_special' => 'nullable|string',
+            'penyimpanan_platinum' => 'nullable|string',
+            'deskripsi_spesial' => 'nullable|string',
+            'deskripsi_platinum' => 'nullable|string',
         ]);
 
         $fotoPath = null;
@@ -52,8 +53,8 @@ class VideografiController extends Controller
             'waktu_platinum' => $request->waktu_platinum,
             'penyimpanan_special' => $request->penyimpanan_special,
             'penyimpanan_platinum' => $request->penyimpanan_platinum,
-            'deskripsi' => $request->deskripsi,
-        ]);
+            'deskripsi_spesial' => $request->deskripsi_spesial,
+            'deskripsi_platinum' => $request->deskripsi_platinum,        ]);
 
         return redirect()->route('videografi.index')->with('success', 'Data Videografi berhasil ditambahkan');
     }
@@ -69,16 +70,16 @@ class VideografiController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'harga_special' => 'required|numeric',
-            'harga_platinum' => 'required|numeric',
-            'tenaga_kerja_spesial' => 'required|integer',
-            'tenaga_kerja_platinum' => 'required|integer',
-            'waktu_spesial' => 'required|integer',
-            'waktu_platinum' => 'required|integer',
-            'penyimpanan_special' => 'required|string',
-            'penyimpanan_platinum' => 'required|string',
-            'deskripsi' => 'nullable|string',
-        ]);
+            'harga_special' => 'nullable|numeric',
+            'harga_platinum' => 'nullable|numeric',
+            'tenaga_kerja_spesial' => 'nullable|integer',
+            'tenaga_kerja_platinum' => 'nullable|integer',
+            'waktu_spesial' => 'nullable|integer',
+            'waktu_platinum' => 'nullable|integer',
+            'penyimpanan_special' => 'nullable|string',
+            'penyimpanan_platinum' => 'nullable|string',
+            'deskripsi_spesial' => 'nullable|string',
+            'deskripsi_platinum' => 'nullable|string',        ]);
 
         $videografi = Videografi::findOrFail($id);
 
@@ -101,8 +102,8 @@ class VideografiController extends Controller
             'waktu_platinum' => $request->waktu_platinum,
             'penyimpanan_special' => $request->penyimpanan_special,
             'penyimpanan_platinum' => $request->penyimpanan_platinum,
-            'deskripsi' => $request->deskripsi,
-        ]);
+            'deskripsi_spesial' => $request->deskripsi_spesial,
+            'deskripsi_platinum' => $request->deskripsi_platinum,        ]);
 
         return redirect()->route('videografi.index')->with('success', 'Data Videografi berhasil diperbarui');
     }

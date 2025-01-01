@@ -38,6 +38,9 @@ class UlasanController extends Controller
     {
         // Validasi input
         $request->validate([
+            'pemesanan_id' => 'nullable|exists:pemesanan,id',
+            'pemesanan_videografi_id' => 'nullable|exists:pemesananvideografi,id',
+            'pemesanan_promo_id' => 'nullable|exists:pemesananpromo,id',
             'bintang' => 'required|integer|min:1|max:5',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'catatan' => 'nullable|string',

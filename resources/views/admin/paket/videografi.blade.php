@@ -155,50 +155,50 @@
                                                         <div class="mb-3">
                                                             <label for="harga_special{{ $item->id }}"
                                                                 class="form-label">Harga Special</label>
-                                                            <input type="number" name="harga_special"
+                                                            <input type="text" name="harga_special"
                                                                 class="form-control"
                                                                 id="harga_special{{ $item->id }}"
-                                                                value="{{ $item->harga_special }}" required>
+                                                                value="{{ $item->harga_special }}" >
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="harga_platinum{{ $item->id }}"
                                                                 class="form-label">Harga Platinum</label>
-                                                            <input type="number" name="harga_platinum"
+                                                            <input type="text" name="harga_platinum"
                                                                 class="form-control"
                                                                 id="harga_platinum{{ $item->id }}"
-                                                                value="{{ $item->harga_platinum }}" required>
+                                                                value="{{ $item->harga_platinum }}" >
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="tenaga_kerja_spesial{{ $item->id }}"
                                                                 class="form-label">Tenaga Kerja Special</label>
-                                                            <input type="number" name="tenaga_kerja_spesial"
+                                                            <input type="text" name="tenaga_kerja_spesial"
                                                                 class="form-control"
                                                                 id="tenaga_kerja_spesial{{ $item->id }}"
-                                                                value="{{ $item->tenaga_kerja_spesial }}" required>
+                                                                value="{{ $item->tenaga_kerja_spesial }}" >
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="tenaga_kerja_platinum{{ $item->id }}"
                                                                 class="form-label">Tenaga Kerja Platinum</label>
-                                                            <input type="number" name="tenaga_kerja_platinum"
+                                                            <input type="text" name="tenaga_kerja_platinum"
                                                                 class="form-control"
                                                                 id="tenaga_kerja_platinum{{ $item->id }}"
-                                                                value="{{ $item->tenaga_kerja_platinum }}" required>
+                                                                value="{{ $item->tenaga_kerja_platinum }}" >
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="waktu_spesial{{ $item->id }}"
                                                                 class="form-label">Waktu Special (Jam)</label>
-                                                            <input type="number" name="waktu_spesial"
+                                                            <input type="text" name="waktu_spesial"
                                                                 class="form-control"
                                                                 id="waktu_spesial{{ $item->id }}"
-                                                                value="{{ $item->waktu_spesial }}" required>
+                                                                value="{{ $item->waktu_spesial }}" >
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="waktu_platinum{{ $item->id }}"
                                                                 class="form-label">Waktu Platinum (Jam)</label>
-                                                            <input type="number" name="waktu_platinum"
+                                                            <input type="text" name="waktu_platinum"
                                                                 class="form-control"
                                                                 id="waktu_platinum{{ $item->id }}"
-                                                                value="{{ $item->waktu_platinum }}" required>
+                                                                value="{{ $item->waktu_platinum }}" >
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="penyimpanan_special{{ $item->id }}"
@@ -206,7 +206,7 @@
                                                             <input type="text" name="penyimpanan_special"
                                                                 class="form-control"
                                                                 id="penyimpanan_special{{ $item->id }}"
-                                                                value="{{ $item->penyimpanan_special }}" required>
+                                                                value="{{ $item->penyimpanan_special }}" >
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="penyimpanan_platinum{{ $item->id }}"
@@ -214,12 +214,17 @@
                                                             <input type="text" name="penyimpanan_platinum"
                                                                 class="form-control"
                                                                 id="penyimpanan_platinum{{ $item->id }}"
-                                                                value="{{ $item->penyimpanan_platinum }}" required>
+                                                                value="{{ $item->penyimpanan_platinum }}" >
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="deskripsi{{ $item->id }}"
+                                                            <label for="deskripsi_spesial{{ $item->id }}"
                                                                 class="form-label">Deskripsi</label>
-                                                            <textarea name="deskripsi" id="deskripsi{{ $item->id }}" class="form-control" required>{{ $item->deskripsi }}</textarea>
+                                                            <textarea name="deskripsi_spesial" id="deskripsi_spesial{{ $item->id }}" class="form-control" >{{ $item->deskripsi_spesial }}</textarea>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="deskripsi_platinum{{ $item->id }}"
+                                                                class="form-label">Deskripsi</label>
+                                                            <textarea name="deskripsi_platinum" id="deskripsi_platinum{{ $item->id }}" class="form-control" >{{ $item->deskripsi_platinum }}</textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -259,45 +264,49 @@
                         </div>
                         <div class="mb-3">
                             <label for="harga_special" class="form-label">Harga Special</label>
-                            <input type="number" name="harga_special" class="form-control" id="harga_special" required>
+                            <input type="number" name="harga_special" class="form-control" id="harga_special" >
                         </div>
                         <div class="mb-3">
                             <label for="harga_platinum" class="form-label">Harga Platinum</label>
                             <input type="number" name="harga_platinum" class="form-control" id="harga_platinum"
-                                required>
+                                >
                         </div>
                         <div class="mb-3">
                             <label for="tenaga_kerja_spesial" class="form-label">Tenaga Kerja Special</label>
-                            <input type="number" name="tenaga_kerja_spesial" class="form-control"
-                                id="tenaga_kerja_spesial" required>
+                            <input type="text" name="tenaga_kerja_spesial" class="form-control"
+                                id="tenaga_kerja_spesial" >
                         </div>
                         <div class="mb-3">
                             <label for="tenaga_kerja_platinum" class="form-label">Tenaga Kerja Platinum</label>
-                            <input type="number" name="tenaga_kerja_platinum" class="form-control"
-                                id="tenaga_kerja_platinum" required>
+                            <input type="text" name="tenaga_kerja_platinum" class="form-control"
+                                id="tenaga_kerja_platinum" >
                         </div>
                         <div class="mb-3">
                             <label for="waktu_spesial" class="form-label">Waktu Special (Jam)</label>
-                            <input type="number" name="waktu_spesial" class="form-control" id="waktu_spesial" required>
+                            <input type="text" name="waktu_spesial" class="form-control" id="waktu_spesial" >
                         </div>
                         <div class="mb-3">
                             <label for="waktu_platinum" class="form-label">Waktu Platinum (Jam)</label>
-                            <input type="number" name="waktu_platinum" class="form-control" id="waktu_platinum"
-                                required>
+                            <input type="text" name="waktu_platinum" class="form-control" id="waktu_platinum"
+                                >
                         </div>
                         <div class="mb-3">
                             <label for="penyimpanan_special" class="form-label">Penyimpanan Special</label>
                             <input type="text" name="penyimpanan_special" class="form-control"
-                                id="penyimpanan_special" required>
+                                id="penyimpanan_special" >
                         </div>
                         <div class="mb-3">
                             <label for="penyimpanan_platinum" class="form-label">Penyimpanan Platinum</label>
                             <input type="text" name="penyimpanan_platinum" class="form-control"
-                                id="penyimpanan_platinum" required>
+                                id="penyimpanan_platinum" >
                         </div>
                         <div class="mb-3">
-                            <label for="deskripsi" class="form-label">Deskripsi</label>
-                            <textarea name="deskripsi" id="deskripsi" class="form-control"></textarea>
+                            <label for="deskripsi_spesial" class="form-label">Deskripsi spesial</label>
+                            <textarea name="deskripsi_spesial" id="deskripsi_spesial" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="deskripsi_platinum" class="form-label">Deskripsi platinum</label>
+                            <textarea name="deskripsi_platinum" id="deskripsi_platinum" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

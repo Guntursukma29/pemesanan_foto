@@ -35,7 +35,7 @@
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title">{{ $fotografi->nama }}</h5>
                                         <p class="card-text">Mulai Dari Harga: Rp
-                                            {{ number_format($fotografi->harga_special, 0, ',', '.') }}</p>
+                                            {{ number_format($fotografi->harga_special, 0, ',', '.') }}an</p>
                                         <p class="card-text">{{ Str::limit($fotografi->deskripsi, 100) }}</p>
                                         <a href="{{ route('fotografi.detail', $fotografi->id) }}"
                                             class="btn btn-primary mt-auto">Lihat Detail</a>

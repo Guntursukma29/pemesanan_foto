@@ -29,11 +29,11 @@
                 <div class="row flex-grow">
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left p-5">
-                            <div class="brand-logo">
-                                <img src="{{ asset('admin/assets/images/logo.svg') }}">
+                            <div class="brand-logo text-center">
+                                <img src="{{ asset('admin/assets/images/clicks studio.png') }}" height="100" width="70">
                             </div>
-                            <h4>Hello! let's get started</h4>
-                            <h6 class="font-weight-light">Sign in to continue.</h6>
+                            <h4>Welcome Back!</h4>
+                            {{-- <h6 class="font-weight-light">Sign in to continue.</h6> --}}
                             <!-- Form menggunakan Laravel -->
                             <form method="POST" action="{{ route('login') }}" class="pt-3">
                                 @csrf
@@ -65,7 +65,7 @@
                                 <div class="mt-3 d-grid gap-2">
                                     <button type="submit"
                                         class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">
-                                        SIGN IN
+                                        Login
                                     </button>
                                 </div>
                                 <!-- Remember Me dan Forgot Password -->
@@ -73,7 +73,7 @@
                                     <div class="form-check">
                                         <label class="form-check-label text-muted">
                                             <input type="checkbox" class="form-check-input" name="remember"
-                                                {{ old('remember') ? 'checked' : '' }}> Keep me signed in
+                                                {{ old('remember') ? 'checked' : '' }}> Remember me
                                         </label>
                                     </div>
                                     @if (Route::has('password.request'))
@@ -83,7 +83,7 @@
                                 </div>
                                 <!-- Link Create Account -->
                                 <div class="text-center mt-4 font-weight-light"> Don't have an account?
-                                    <a href="{{ route('register') }}" class="text-primary">Create</a>
+                                    <a href="{{ route('register') }}" class="text-primary">Register here</a>
                                 </div>
                             </form>
                         </div>

@@ -21,11 +21,11 @@
                 <div class="row flex-grow">
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left p-5">
-                            <div class="brand-logo">
-                                <img src="{{ asset('admin/assets/images/logo.svg') }}" alt="Logo">
+                            <div class="brand-logo text-center">
+                                <img src="{{ asset('admin/assets/images/clicks studio.png') }}" alt="Logo">
                             </div>
-                            <h4>New here?</h4>
-                            <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+                            <h4>Welcome Back!</h4>
+                            {{-- <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6> --}}
 
                             <!-- Form -->
                             <form method="POST" action="{{ route('register') }}">
@@ -94,13 +94,13 @@
                                 <div class="mt-3">
                                     <button type="submit"
                                         class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">
-                                        SIGN UP
+                                        Register
                                     </button>
                                 </div>
 
                                 <div class="text-center mt-4 font-weight-light">
                                     Already have an account?
-                                    <a href="{{ route('login') }}" class="text-primary">Login</a>
+                                    <a href="{{ route('login') }}" class="text-primary">Login here</a>
                                 </div>
                             </form>
                             <!-- End Form -->

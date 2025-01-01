@@ -4,15 +4,13 @@
 </div>
 <div class="mb-3">
     <label for="foto" class="form-label">Foto</label>
-    <input type="file" class="form-control" id="foto" name="foto" {{ $promo ? '' : 'required' }}>
+    <input type="file" class="form-control" id="foto" name="foto" {{ isset($promo) ? '' : 'required' }}>
 </div>
 <div class="mb-3">
     <label for="tipe" class="form-label">Tipe</label>
     <select class="form-control" id="tipe" name="tipe" required>
-        <option value="videografi" {{ isset($promo) && $promo->tipe == 'videografi' ? 'selected' : '' }}>Videografi
-        </option>
-        <option value="fotografi" {{ isset($promo) && $promo->tipe == 'fotografi' ? 'selected' : '' }}>Fotografi
-        </option>
+        <option value="videografi" {{ isset($promo) && $promo->tipe == 'videografi' ? 'selected' : '' }}>Videografi</option>
+        <option value="fotografi" {{ isset($promo) && $promo->tipe == 'fotografi' ? 'selected' : '' }}>Fotografi</option>
     </select>
 </div>
 <div class="mb-3">
@@ -25,15 +23,21 @@
 </div>
 <div class="mb-3">
     <label for="tenaga_kerja" class="form-label">Tenaga Kerja</label>
-    <input type="text" class="form-control" id="tenaga_kerja" name="tenaga_kerja"
-        value="{{ $promo->tenaga_kerja ?? '' }}" required>
+    <input type="text" class="form-control" id="tenaga_kerja" name="tenaga_kerja" value="{{ $promo->tenaga_kerja ?? '' }}" required>
 </div>
 <div class="mb-3">
     <label for="penyimpanan" class="form-label">Penyimpanan</label>
-    <input type="text" class="form-control" id="penyimpanan" name="penyimpanan"
-        value="{{ $promo->penyimpanan ?? '' }}" required>
+    <input type="text" class="form-control" id="penyimpanan" name="penyimpanan" value="{{ $promo->penyimpanan ?? '' }}" required>
 </div>
 <div class="mb-3">
     <label for="deskripsi" class="form-label">Deskripsi</label>
     <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required>{{ $promo->deskripsi ?? '' }}</textarea>
+</div>
+<div class="mb-3">
+    <label for="mulai" class="form-label">Mulai</label>
+    <input type="date" class="form-control" id="mulai" name="mulai" value="{{ $promo->mulai ?? '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="berakhir" class="form-label">Berakhir</label>
+    <input type="date" class="form-control" id="berakhir" name="berakhir" value="{{ $promo->berakhir ?? '' }}" required>
 </div>

@@ -34,15 +34,16 @@ class FotografiController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'harga_special' => 'required|numeric|min:0',
-            'harga_platinum' => 'required|numeric|min:0',
-            'tenaga_kerja_spesial' => 'required|integer|min:1',
-            'tenaga_kerja_platinum' => 'required|integer|min:1',
-            'waktu_spesial' => 'required|integer|min:1',
-            'waktu_platinum' => 'required|integer|min:1',
-            'penyimpanan_special' => 'required|string|max:255',
-            'penyimpanan_platinum' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
+            'harga_special' => 'nullable|string|min:0',
+            'harga_platinum' => 'nullable|string|min:0',
+            'tenaga_kerja_spesial' => 'nullable|string|min:1',
+            'tenaga_kerja_platinum' => 'nullable|string|min:1',
+            'waktu_spesial' => 'nullable|string|min:1',
+            'waktu_platinum' => 'nullable|string|min:1',
+            'penyimpanan_special' => 'nullable|string|max:255',
+            'penyimpanan_platinum' => 'nullable|string|max:255',
+            'deskripsi_spesial' => 'nullable|string',
+            'deskripsi_platinum' => 'nullable|string',
         ]);
 
         // Handle file upload
@@ -63,7 +64,8 @@ class FotografiController extends Controller
             'waktu_platinum' => $request->waktu_platinum,
             'penyimpanan_special' => $request->penyimpanan_special,
             'penyimpanan_platinum' => $request->penyimpanan_platinum,
-            'deskripsi' => $request->deskripsi,
+            'deskripsi_spesial' => $request->deskripsi_spesial,
+            'deskripsi_platinum' => $request->deskripsi_platinum,
         ]);
 
         return redirect()->route('fotografi.index')->with('success', 'Data fotografi berhasil ditambahkan!');
@@ -93,16 +95,16 @@ class FotografiController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'harga_special' => 'required|numeric|min:0',
-            'harga_platinum' => 'required|numeric|min:0',
-            'tenaga_kerja_spesial' => 'required|integer|min:1',
-            'tenaga_kerja_platinum' => 'required|integer|min:1',
-            'waktu_spesial' => 'required|integer|min:1',
-            'waktu_platinum' => 'required|integer|min:1',
-            'penyimpanan_special' => 'required|string|max:255',
-            'penyimpanan_platinum' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-        ]);
+            'harga_special' => 'nullable|string|min:0',
+            'harga_platinum' => 'nullable|string|min:0',
+            'tenaga_kerja_spesial' => 'nullable|string|min:1',
+            'tenaga_kerja_platinum' => 'nullable|string|min:1',
+            'waktu_spesial' => 'nullable|string|min:1',
+            'waktu_platinum' => 'nullable|string|min:1',
+            'penyimpanan_special' => 'nullable|string|max:255',
+            'penyimpanan_platinum' => 'nullable|string|max:255',
+            'deskripsi_spesial' => 'nullable|string',
+            'deskripsi_platinum' => 'nullable|string',        ]);
 
         // Find the item by ID
         $fotografi = Fotografi::findOrFail($id);
@@ -128,8 +130,8 @@ class FotografiController extends Controller
             'waktu_platinum' => $request->waktu_platinum,
             'penyimpanan_special' => $request->penyimpanan_special,
             'penyimpanan_platinum' => $request->penyimpanan_platinum,
-            'deskripsi' => $request->deskripsi,
-        ]);
+            'deskripsi_spesial' => $request->deskripsi_spesial,
+            'deskripsi_platinum' => $request->deskripsi_platinum,        ]);
 
         return redirect()->route('fotografi.index')->with('success', 'Data fotografi berhasil diperbarui!');
     }

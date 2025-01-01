@@ -20,6 +20,8 @@ class Promo extends Model
         'tenaga_kerja',
         'penyimpanan',
         'deskripsi',
+        'mulai',
+        'berakhir'
     ];
     public function pemesanans()
     {

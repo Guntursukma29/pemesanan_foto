@@ -16,6 +16,7 @@
                                     <th>Tanggal</th>
                                     <th>Status Pemesanan</th>
                                     <th>Link Dokumentasi</th>
+                                    <th>Kode Foto Edit</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -28,14 +29,16 @@
                                         <td>{{ $pemesanan->tanggal }}</td>
                                         <td class="text-center">
                                             @if ($pemesanan->status_pemesanan === 'pending')
-                                                <span class="badge bg-warning">Menunggu Pembayaran</span>
-                                            @elseif($pemesanan->status_pemesanan === 'proses')
-                                                <span class="badge bg-info">Menunggu Pelaksanaan</span>
-                                            @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
-                                                <span class="badge bg-primary">Menunggu dokumentasi</span>
-                                            @else
-                                                <span class="badge bg-secondary">Selesai</span>
-                                            @endif
+                                                    <span class="badge bg-warning">Menunggu Pembayaran</span>
+                                                @elseif($pemesanan->status_pemesanan === 'proses')
+                                                    <span class="badge bg-info">Menunggu Pelaksanaan</span>
+                                                @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
+                                                    <span class="badge bg-secondary">Menunggu Hasil Dokumentasi</span>
+                                                @elseif ($pemesanan->status_pemesanan === 'batal')
+                                                    <span class="badge bg-info">Menunggu Hasil Edit</span>
+                                                @else
+                                                    <span class="badge bg-success">selesai</span>
+                                                @endif
                                         </td>
                                         <td>
                                             @if ($pemesanan->link_dokumentasi)
@@ -46,7 +49,15 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($pemesanan->status === 'proses')
+                                            @if ($pemesanan->code_foto)
+                                                {{ $pemesanan->code_foto }}
+                                                    
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($pemesanan->status_pemesanan === 'proses' && $pemesanan->status_pembayaran === 'dibayar')
                                                 <!-- Button untuk Input Link Dokumentasi -->
                                                 <button type="button" class="btn btn-primary btn-sm btn-rounded"
                                                     data-bs-toggle="modal"
@@ -78,7 +89,7 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <form
-                                                    action="{{ route('pemesanan.updateLinkDokumentasi', $pemesanan->id) }}"
+                                                    action="{{ route('pemesanan.updateLinkDokumentasi', ['id' => $pemesanan->id, 'tipe' => 'promo']) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('PUT')

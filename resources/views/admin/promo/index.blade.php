@@ -21,6 +21,8 @@
                                     <th>Foto</th>
                                     <th>Tipe</th>
                                     <th>Harga</th>
+                                    <th>Mulai</th>
+                                    <th>Berakhir</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -29,10 +31,11 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $p->nama }}</td>
-                                        <td><img src="{{ asset('storage/' . $p->foto) }}" width="50" alt="Foto">
-                                        </td>
+                                        <td><img src="{{ asset('storage/' . $p->foto) }}" width="50" alt="Foto"></td>
                                         <td>{{ $p->tipe }}</td>
                                         <td>Rp {{ number_format($p->harga, 2, ',', '.') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($p->mulai)->format('d-m-Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($p->berakhir)->format('d-m-Y') }}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#editPromoModal{{ $p->id }}">Edit</button>
@@ -43,8 +46,7 @@
                                                 @method('DELETE')
                                             </form>
                                             <button type="button" onclick="confirmDelete({{ $p->id }})"
-                                                class="btn
-                                                btn-danger btn-sm">Hapus</button>
+                                                class="btn btn-danger btn-sm">Hapus</button>
                                         </td>
                                     </tr>
 

@@ -23,6 +23,8 @@ class CreatePromoTable extends Migration
             $table->string('tenaga_kerja');
             $table->string('penyimpanan');
             $table->text('deskripsi');
+            $table->date('mulai');
+            $table->date('berakhir');
             $table->timestamps();
         });
     }

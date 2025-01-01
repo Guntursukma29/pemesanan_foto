@@ -56,32 +56,40 @@ class PemesananPromoController extends Controller
 
     public function assignFotografer(Request $request, $id)
     {
+        // Validasi input
         $request->validate([
             'id_fotografer' => 'required|exists:users,id',
         ]);
 
-        // Cek jika fotografer sedang ditugaskan
-        $fotograferInUse = PemesananPromo::where('id_fotografer', $request->id_fotografer)
-                ->where('status_pemesanan', '!=', 'selesai')
-                ->exists()
-            || PemesananVideografi::where('id_fotografer', $request->id_fotografer)
-                ->where('status_pemesanan', '!=', 'selesai')
-                ->exists()
-            || Pemesanan::where('id_fotografer', $request->id_fotografer)
-                ->where('status_pemesanan', '!=', 'selesai')
-                ->exists();
+        // Cek apakah fotografer sedang ditugaskan di Pemesanan yang statusnya tidak selesai
+        $fotograferInUsePemesanan = Pemesanan::where('id_fotografer', $request->id_fotografer)
+            ->where('status_pemesanan', '!=', 'selesai')
+            ->exists();
 
-        if ($fotograferInUse) {
-            return redirect()->route('admin.pemesanan.promo')->with('error', 'Fotografer sedang ditugaskan. Pilih fotografer lain.');
+        // Cek apakah fotografer sedang ditugaskan di PemesananVideografi yang statusnya tidak selesai
+        $fotograferInUseVideografi = PemesananVideografi::where('id_fotografer', $request->id_fotografer)
+            ->where('status_pemesanan', '!=', 'selesai')
+            ->exists();
+
+        // Cek apakah fotografer sedang ditugaskan di PemesananPromo yang statusnya tidak selesai
+        $fotograferInUsePromo = PemesananPromo::where('id_fotografer', $request->id_fotografer)
+            ->where('status_pemesanan', '!=', 'selesai')
+            ->exists();
+
+        // Jika fotografer sedang ditugaskan di salah satu model dengan status belum selesai, beri peringatan
+        if ($fotograferInUsePemesanan || $fotograferInUseVideografi || $fotograferInUsePromo) {
+            return redirect()->route('admin.pemesanan.index')->with('error', 'Fotografer sedang ditugaskan di pesanan lain. Pilih fotografer lain.');
         }
 
+        // Jika tidak ada masalah, update pemesanan dengan id_fotografer yang baru
         $pemesanan = PemesananPromo::findOrFail($id);
         $pemesanan->update([
             'id_fotografer' => $request->id_fotografer,
-            'status_pemesanan' => 'proses',
+            'status_pemesanan' => 'proses', // Ubah status menjadi 'proses' setelah fotografer ditugaskan
         ]);
 
-        return redirect()->route('admin.pemesanan.promo')->with('success', 'Fotografer berhasil ditugaskan.');
+        
+        return redirect()->route('admin.pemesanan.promo.index')->with('success', 'Fotografer berhasil ditugaskan.');
     }
 
 
@@ -236,6 +244,7 @@ class PemesananPromoController extends Controller
         // Update kode foto pada pemesanan
         $pemesanan->update([
             'code_foto' => $request->code_foto,
+            'status_pemesanan' => 'batal'
         ]);
 
         // Redirect ke route pemesanans.index dengan pesan sukses

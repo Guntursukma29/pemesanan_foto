@@ -17,6 +17,7 @@
                                     <th>Jam</th>
                                     <th>Status Pemesanan</th>
                                     <th>Link Dokumentasi</th>
+                                    <th>Code Foto Edit</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -30,19 +31,29 @@
                                         <td>{{ $pemesanan->jam }}</td>
                                         <td class="text-center">
                                             @if ($pemesanan->status_pemesanan === 'pending')
-                                                <span class="badge bg-warning">Menunggu Pembayaran</span>
-                                            @elseif($pemesanan->status_pemesanan === 'proses')
-                                                <span class="badge bg-info">Menunggu Pelaksanaan</span>
-                                            @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
-                                                <span class="badge bg-primary">Menunggu dokumentasi</span>
-                                            @else
-                                                <span class="badge bg-secondary">Selesai</span>
-                                            @endif
+                                                    <span class="badge bg-warning">Menunggu Pembayaran</span>
+                                                @elseif($pemesanan->status_pemesanan === 'proses')
+                                                    <span class="badge bg-info">Menunggu Pelaksanaan</span>
+                                                @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
+                                                    <span class="badge bg-secondary">Menunggu Hasil Dokumentasi</span>
+                                                @elseif ($pemesanan->status_pemesanan === 'batal')
+                                                    <span class="badge bg-info">Menunggu Hasil Edit</span>
+                                                @else
+                                                    <span class="badge bg-success">selesai</span>
+                                                @endif
                                         </td>
                                         <td>
                                             @if ($pemesanan->link_dokumentasi)
                                                 <a href="{{ $pemesanan->link_dokumentasi }}" target="_blank">Lihat
                                                     Dokumentasi</a>
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($pemesanan->code_foto)
+                                                {{ $pemesanan->code_foto }}
+                                                    
                                             @else
                                                 -
                                             @endif

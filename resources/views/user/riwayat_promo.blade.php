@@ -60,10 +60,10 @@
                                                     Lihat Detail
                                                 </button>
                                                 @if (!empty($pemesanan->link_dokumentasi))
-                                                    <a class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                    {{-- <a class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                                         data-bs-target="#dokumentasiModal-{{ $pemesanan->id }}">
                                                         Dokumentasi
-                                                    </a>
+                                                    </a> --}}
                                                 @endif
                                                 <div class="modal fade" id="dokumentasiModal-{{ $pemesanan->id }}"
                                                     tabindex="-1" aria-labelledby="dokumentasiModalLabel"
@@ -102,7 +102,7 @@
                                                                         <div class="mb-3">
                                                                             <label for="code_foto"
                                                                                 class="form-label">Masukkan Kode
-                                                                                Foto</label>
+                                                                                Foto edit</label>
                                                                             <input type="text" name="code_foto"
                                                                                 id="code_foto" class="form-control"
                                                                                 placeholder="Masukkan kode foto" required>

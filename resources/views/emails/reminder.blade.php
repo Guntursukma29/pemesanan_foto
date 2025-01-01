@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <h2>Halo {{ $data['name'] }},</h2>
+    <h2>Halo Bapak/Ibu {{ $data['name'] }},</h2>
     <p>Ini adalah pengingat mengenai pemesanan Anda yang akan datang:</p>
 
     <p><strong>Paket:</strong> {{ $data['Paket'] }}</p>

@@ -252,7 +252,7 @@
                                                                     @csrf
                                                                     <div class="mb-3">
                                                                         <label for="code_foto" class="form-label">Masukkan
-                                                                            Kode Foto</label>
+                                                                            Kode Foto edit</label>
                                                                         <input type="text" name="code_foto"
                                                                             id="code_foto" class="form-control"
                                                                             placeholder="Masukkan kode foto" required>

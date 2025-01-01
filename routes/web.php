@@ -54,10 +54,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dokumentasi/videografi', [DokumentasiController::class, 'indexVideografi'])->name('dokumentasi.videografi');
 
 // Route untuk reminder pemesanan promo
-        Route::get('/reminder/promo', [PemesananPromoController::class, 'sendReminder'])->name('reminder.promo');
+        Route::post('/reminder/promo', [PemesananPromoController::class, 'sendReminder'])->name('reminder.promo');
 
 // Route untuk reminder pemesanan biasa
-        Route::get('/reminder', [PemesananController::class, 'sendReminder'])->name('reminder.pemesanan');
+        Route::post('/reminder', [PemesananController::class, 'sendReminder'])->name('reminder.pemesanan');
         // Rute untuk Pemesanan Promo
         Route::get('/pemesanan/promo', [PemesananPromoController::class, 'adminIndex'])->name('admin.pemesanan.promo.index');
         Route::post('/pemesanan/promo/assign/{id}', [PemesananPromoController::class, 'assignFotografer'])->name('admin.pemesanan.promo.assign');

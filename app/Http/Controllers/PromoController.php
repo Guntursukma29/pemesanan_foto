@@ -24,6 +24,8 @@ class PromoController extends Controller
             'tenaga_kerja' => 'required',
             'penyimpanan' => 'required',
             'deskripsi' => 'required',
+            'mulai' => 'required|date|before_or_equal:berakhir',
+            'berakhir' => 'required|date|after_or_equal:mulai',
         ]);
 
         $fotoPath = $request->file('foto')->store('promo', 'public');
@@ -37,6 +39,8 @@ class PromoController extends Controller
             'tenaga_kerja' => $request->tenaga_kerja,
             'penyimpanan' => $request->penyimpanan,
             'deskripsi' => $request->deskripsi,
+            'mulai' => $request->mulai,
+            'berakhir' => $request->berakhir,
         ]);
 
         return redirect()->back()->with('success', 'Promo berhasil ditambahkan.');
@@ -55,6 +59,8 @@ class PromoController extends Controller
             'tenaga_kerja' => 'required',
             'penyimpanan' => 'required',
             'deskripsi' => 'required',
+            'mulai' => 'required|date|before_or_equal:berakhir',
+            'berakhir' => 'required|date|after_or_equal:mulai',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -70,6 +76,8 @@ class PromoController extends Controller
             'tenaga_kerja' => $request->tenaga_kerja,
             'penyimpanan' => $request->penyimpanan,
             'deskripsi' => $request->deskripsi,
+            'mulai' => $request->mulai,
+            'berakhir' => $request->berakhir,
         ]);
 
         return redirect()->back()->with('success', 'Promo berhasil diperbarui.');

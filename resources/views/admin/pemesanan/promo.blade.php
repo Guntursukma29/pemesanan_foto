@@ -65,7 +65,7 @@
                                             <!-- Tombol untuk membuka modal input fotografer -->
                                             @if ($pemesanan->fotografer)
                                                 <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                                    data-bs-target="#inputFotograferModal{{ $pemesanan->id }}">
+                                                    data-bs-target="#assignFotograferModal{{ $pemesanan->id }}">
                                                     Ubah Fotografer
                                                 </button>
                                                 <form method="POST" action="{{ route('reminder.promo', $pemesanan->id) }}"
@@ -76,7 +76,7 @@
                                                 </form>
                                             @elseif ($pemesanan->status_pemesanan === 'proses' && $pemesanan->status_pembayaran === 'dibayar')
                                                 <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"
-                                                    data-bs-target="#inputFotograferModal{{ $pemesanan->id }}">
+                                                    data-bs-target="#assignFotograferModal{{ $pemesanan->id }}">
                                                     Input Fotografer
                                                 </button>
                                             @endif

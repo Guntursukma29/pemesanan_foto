@@ -15,15 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('foto')->nullable(); // Menyimpan path foto
-            $table->decimal('harga_special', 10, 2);
-            $table->decimal('harga_platinum', 10, 2);
-            $table->integer('tenaga_kerja_spesial');   // Jumlah tenaga kerja
-            $table->integer('tenaga_kerja_platinum');   // Jumlah tenaga kerja
-            $table->integer('waktu_spesial');          // Waktu dalam jam
-            $table->integer('waktu_platinum');          // Waktu dalam jam
-            $table->string('penyimpanan_special');     // Penyimpanan, misalnya USB atau Cloud
-            $table->string('penyimpanan_platinum');     // Penyimpanan, misalnya USB atau Cloud
-            $table->text('deskripsi')->nullable();
+            $table->string('harga_special', 10, 2)->nullable();
+            $table->string('harga_platinum', 10, 2)->nullable();
+            $table->string('tenaga_kerja_spesial')->nullable();   // Jumlah tenaga kerja
+            $table->string('tenaga_kerja_platinum')->nullable();   // Jumlah tenaga kerja
+            $table->string('waktu_spesial')->nullable();          // Waktu dalam jam
+            $table->string('waktu_platinum')->nullable();          // Waktu dalam jam
+            $table->string('penyimpanan_special')->nullable();     // Penyimpanan, misalnya USB atau Cloud
+            $table->string('penyimpanan_platinum')->nullable();     // Penyimpanan, misalnya USB atau Cloud
+            $table->text('deskripsi_spesial')->nullable();
+            $table->text('deskripsi_platinum')->nullable();
             $table->timestamps();
         });
     }
