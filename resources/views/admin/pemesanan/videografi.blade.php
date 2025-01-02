@@ -14,11 +14,11 @@
                                     <th>Order ID</th>
                                     <th>Nama</th>
                                     <th>Nama Paket</th>
-                                    <th>Harga</th>
+                                    <th>Fotografer</th>
                                     <th>Tanggal</th>
                                     <th>Status Pemesanan</th>
                                     <th>Status Pembayaran</th>
-                                    <th>Fotografer</th>
+                                    <th>Harga</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -176,6 +176,20 @@
                                     </div>
                                 @endforeach
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="8">Total Harga Spesial</td>
+                                    <td colspan="2">Rp {{ number_format($totalHargaSpesial, 0, ',', '.') }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8">Total Harga Platinum</td>
+                                    <td colspan="2">Rp {{ number_format($totalHargaPlatinum, 0, ',', '.') }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8">Total Keseluruhan</td>
+                                    <td colspan="2">Rp {{ number_format($totalHargaKeseluruhan, 0, ',', '.') }}</td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

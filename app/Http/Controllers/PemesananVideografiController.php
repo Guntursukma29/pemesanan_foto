@@ -36,20 +36,30 @@ class PemesananVideografiController extends Controller
     {
         $pemesanans = PemesananVideografi::with(['user', 'paket', 'fotografer'])->get();
 
-        // Filter fotografer yang sedang tidak ditugaskan di Pemesanan, PemesananVideografi, dan PemesananPromo
-        $fotografer = User::where('role', 'fotografer')
-            ->whereDoesntHave('pemesananVideografi', function ($query) {
-                $query->where('status_pemesanan', '!=', 'selesai');
-            })
-            ->whereDoesntHave('pemesanan', function ($query) {
-                $query->where('status_pemesanan', '!=', 'selesai');
-            })
-            ->whereDoesntHave('pemesananPromo', function ($query) {
-                $query->where('status_pemesanan', '!=', 'selesai');
-            })
-            ->get();
+        $totalHargaSpesial = $pemesanans
+        ->where('paket_jenis', 'special')
+        ->sum(fn ($item) => $item->paket->harga_special);
 
-        return view('admin.pemesanan.videografi', compact('pemesanans', 'fotografer'));
+    $totalHargaPlatinum = $pemesanans
+        ->where('paket_jenis', 'platinum')
+        ->sum(fn ($item) => $item->paket->harga_platinum);
+    
+
+    // Mengambil fotografer yang tidak sedang ditugaskan di Pemesanan, PemesananVideografi, dan PemesananPromo yang statusnya bukan 'selesai'
+    $fotografer = User::where('role', 'fotografer')
+        ->whereDoesntHave('pemesanan', function ($query) {
+            $query->where('status_pemesanan', '!=', 'selesai');
+        })
+        ->whereDoesntHave('pemesananVideografi', function ($query) {
+            $query->where('status_pemesanan', '!=', 'selesai');
+        })
+        ->whereDoesntHave('pemesananPromo', function ($query) {
+            $query->where('status_pemesanan', '!=', 'selesai');
+        })
+        ->get();
+        $totalHargaKeseluruhan = $totalHargaSpesial + $totalHargaPlatinum;
+
+        return view('admin.pemesanan.videografi', compact('pemesanans', 'fotografer','totalHargaSpesial', 'totalHargaPlatinum', 'totalHargaKeseluruhan'));
     }
 
 

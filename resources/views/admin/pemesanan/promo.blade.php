@@ -14,11 +14,11 @@
                                     <th>Order ID</th>
                                     <th>Nama</th>
                                     <th>Nama Promo</th>
-                                    <th>Harga</th>
                                     <th>Tanggal</th>
                                     <th>Status Pemesanan</th>
                                     <th>Status Pembayaran</th>
                                     <th>Fotografer</th>
+                                    <th>Harga</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -29,28 +29,28 @@
                                         <td>{{ $pemesanan->order_id }}</td>
                                         <td>{{ $pemesanan->user->name }}</td>
                                         <td>{{ $pemesanan->promo->nama }}</td>
-                                        <td>Rp {{ number_format($pemesanan->promo->harga, 0, ',', '.') }}</td>
                                         <td>{{ $pemesanan->tanggal }}</td>
                                         <td>
                                             @if ($pemesanan->status_pemesanan === 'pending')
-                                                <span class="badge bg-warning">Menunggu Pembayaran</span>
+                                            <span class="badge bg-warning">Menunggu Pembayaran</span>
                                             @elseif($pemesanan->status_pemesanan === 'proses')
-                                                <span class="badge bg-info">Menunggu Pelaksanaan</span>
+                                            <span class="badge bg-info">Menunggu Pelaksanaan</span>
                                             @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
-                                                <span class="badge bg-secondary">Menunggu Hasil Dokumentasi</span>
+                                            <span class="badge bg-secondary">Menunggu Hasil Dokumentasi</span>
                                             @elseif ($pemesanan->status_pemesanan === 'selesai')
-                                                <span class="badge bg-success">Selesai</span>
+                                            <span class="badge bg-success">Selesai</span>
                                             @else
-                                                <span class="badge bg-info">Menunggu Hasil Edit</span>
+                                            <span class="badge bg-info">Menunggu Hasil Edit</span>
                                             @endif
                                         </td>
                                         <td>
                                             <span
-                                                class="badge {{ $pemesanan->status_pembayaran === 'belum bayar' ? 'bg-warning' : 'bg-success' }}">
-                                                {{ ucfirst($pemesanan->status_pembayaran) }}
-                                            </span>
-                                        </td>
-                                        <td>{{ $pemesanan->fotografer->name ?? '-' }}</td>
+                                            class="badge {{ $pemesanan->status_pembayaran === 'belum bayar' ? 'bg-warning' : 'bg-success' }}">
+                                            {{ ucfirst($pemesanan->status_pembayaran) }}
+                                        </span>
+                                    </td>
+                                    <td>{{ $pemesanan->fotografer->name ?? '-' }}</td>
+                                    <td>Rp {{ number_format($pemesanan->promo->harga, 0, ',', '.') }}</td>
                                         <td>
                                             <!-- Tombol untuk membuka modal detail -->
                                             <button type="button" class="btn btn-rounded btn-primary btn-sm"
@@ -172,6 +172,20 @@
                                     </div>
                                 @endforeach
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="8">Total Harga Spesial</td>
+                                    <td colspan="2">Rp {{ number_format($totalHargaSpesial, 0, ',', '.') }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8">Total Harga Platinum</td>
+                                    <td colspan="2">Rp {{ number_format($totalHargaPlatinum, 0, ',', '.') }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8">Total Keseluruhan</td>
+                                    <td colspan="2">Rp {{ number_format($totalHargaKeseluruhan, 0, ',', '.') }}</td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

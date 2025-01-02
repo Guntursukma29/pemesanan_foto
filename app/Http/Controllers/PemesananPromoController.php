@@ -37,6 +37,13 @@ class PemesananPromoController extends Controller
     public function adminIndex()
     {
         $pemesanans = PemesananPromo::with(['user', 'promo', 'fotografer'])->get();
+        $totalHargaSpesial = $pemesanans
+            ->where('paket_jenis', 'special')
+            ->sum(fn ($item) => $item->paket->harga_special);
+
+        $totalHargaPlatinum = $pemesanans
+            ->where('paket_jenis', 'platinum')
+            ->sum(fn ($item) => $item->paket->harga_platinum);
 
         // Filter fotografer yang belum ditugaskan di semua pemesanan (promo, videografi, dan lainnya)
         $fotografer = User::where('role', 'fotografer')
@@ -50,8 +57,9 @@ class PemesananPromoController extends Controller
                 $query->where('status_pemesanan', '!=', 'selesai');
             })
             ->get();
+            $totalHargaKeseluruhan = $totalHargaSpesial + $totalHargaPlatinum;
 
-        return view('admin.pemesanan.promo', compact('pemesanans', 'fotografer'));
+        return view('admin.pemesanan.promo', compact('pemesanans', 'fotografer', 'fotografer','totalHargaSpesial', 'totalHargaPlatinum', 'totalHargaKeseluruhan'));
     }
 
     public function assignFotografer(Request $request, $id)

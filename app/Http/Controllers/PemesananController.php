@@ -37,6 +37,14 @@ class PemesananController extends Controller
     {
         // Mengambil data pemesanan dengan relasi user, paket, dan fotografer
         $pemesanans = Pemesanan::with(['user', 'paket', 'fotografer'])->get();
+        $totalHargaSpesial = $pemesanans
+            ->where('paket_jenis', 'special')
+            ->sum(fn ($item) => $item->paket->harga_special);
+
+        $totalHargaPlatinum = $pemesanans
+            ->where('paket_jenis', 'platinum')
+            ->sum(fn ($item) => $item->paket->harga_platinum);
+        
 
         // Mengambil fotografer yang tidak sedang ditugaskan di Pemesanan, PemesananVideografi, dan PemesananPromo yang statusnya bukan 'selesai'
         $fotografer = User::where('role', 'fotografer')
@@ -50,9 +58,8 @@ class PemesananController extends Controller
                 $query->where('status_pemesanan', '!=', 'selesai');
             })
             ->get();
-
-        // Mengirimkan data pemesanan dan fotografer ke view
-        return view('admin.pemesanan.fotografi', compact('pemesanans', 'fotografer'));
+            $totalHargaKeseluruhan = $totalHargaSpesial + $totalHargaPlatinum;
+        return view('admin.pemesanan.fotografi', compact('pemesanans', 'fotografer','totalHargaSpesial', 'totalHargaPlatinum', 'totalHargaKeseluruhan'));
     }
 
 
