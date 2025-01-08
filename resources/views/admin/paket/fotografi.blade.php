@@ -25,7 +25,6 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Paket</th>
-                                    <th>Waktu</th>
                                     <th>Gambar</th>
                                     <th>Harga</th>
                                     <th class="text-center">Aksi</th>
@@ -36,7 +35,6 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->waktu }} Jam</td>
                                         <td>
                                             @if ($item->foto)
                                                 <img src="{{ asset('storage/' . $item->foto) }}" alt="Gambar Paket"

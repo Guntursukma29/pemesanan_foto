@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <h3>Riwayat Pemesanan</h3>
+                        <h3>Riwayat Pemesanan Fotografi</h3>
                         @if (session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
@@ -116,7 +116,7 @@
                                                                             <input type="text" class="form-control"
                                                                                 name="alamat"
                                                                                 value="{{ old('alamat', $pemesanan->alamat) }}"
-                                                                                required>
+                                                                                nullable>
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="tempat"
@@ -152,8 +152,10 @@
                                                     </form>
                                                 @else
                                                     @if ($pemesanan->status_pemesanan === 'selesai')
-                                                        @if (!$pemesanan->ulasan()->exists())
-                                                            <!-- Cek apakah ulasan sudah ada -->
+                                                        @if ($pemesanan->ulasan()->exists())
+                                                        <!-- Cek apakah ulasan sudah ada -->
+                                                        <span class="badge bg-success">Ulasan sudah diberikan</span>
+                                                    @else
                                                             <button type="button" class="btn btn-warning btn-sm"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#ulasModal-{{ $pemesanan->id }}">
@@ -200,8 +202,8 @@
                                                                 {{ $pemesanan->status_pembayaran === 'belum bayar' ? 'Belum Bayar' : 'PAID' }}
                                                             </p>
                                                             <p><strong>Tanggal Pemesanan:</strong>
-                                                                {{ $pemesanan->created_at->format('d-m-Y H:i') }}
-                                                            </p>
+                                                                {{ $pemesanan->jam }}
+                                                            </p>                                                  
                                                             <p><strong>Alamat:</strong> {{ $pemesanan->alamat }}
                                                             </p>
                                                             <p><strong>Tempat:</strong> {{ $pemesanan->tempat }}

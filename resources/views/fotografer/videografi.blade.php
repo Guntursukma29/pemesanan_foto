@@ -14,6 +14,7 @@
                                     <th>Order ID</th>
                                     <th>Nama</th>
                                     <th>Tanggal</th>
+                                    <th>Jam</th>
                                     <th>Status Pemesanan</th>
                                     <th>Link Dokumentasi</th>
                                     <th>Kode Foto</th>
@@ -27,6 +28,7 @@
                                         <td>{{ $pemesanan->order_id }}</td>
                                         <td>{{ $pemesanan->user->name ?? '-' }}</td>
                                         <td>{{ $pemesanan->tanggal }}</td>
+                                        <td>{{ $pemesanan->jam }}</td>
                                         <td class="text-center">
                                             @if ($pemesanan->status_pemesanan === 'pending')
                                                     <span class="badge bg-warning">Menunggu Pembayaran</span>
@@ -58,18 +60,20 @@
                                         </td>
                                         <td>
                                             @if ($pemesanan->status_pemesanan === 'proses')
+                                                <!-- Button trigger modal -->
                                                 <button type="button" class="btn btn-primary btn-sm btn-rounded"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#linkDokumentasiModalVideografi{{ $pemesanan->id }}">
-                                                    Input Link Dokumentasi
+                                                   Input Link Dokumentasi
                                                 </button>
                                             @endif
 
-                                            @if (!empty($pemesanan->code_foto))
-                                                <button type="button" class="btn btn-success btn-sm btn-rounded"
+                                            @if ($pemesanan->code_foto)
+                                                <!-- Button untuk Masukkan Link Foto -->
+                                                <button type="button" class="btn btn-sm btn-rounded btn-success"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#linkFotoModal{{ $pemesanan->id }}">
-                                                    Masukkan Link Foto
+                                                    Masukkan Link Dokumetasi Edit
                                                 </button>
                                             @endif
                                         </td>

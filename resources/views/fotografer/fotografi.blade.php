@@ -61,10 +61,10 @@
                                         <td>
                                             @if ($pemesanan->status_pemesanan === 'proses')
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-sm btn-rounded btn-primary"
+                                                <button type="button" class="btn btn-primary btn-sm btn-rounded"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#linkDokumentasiModal{{ $pemesanan->id }}">
-                                                    Link Dokumentasi
+                                                   Input Link Dokumentasi
                                                 </button>
                                             @endif
 
@@ -73,7 +73,7 @@
                                                 <button type="button" class="btn btn-sm btn-rounded btn-success"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#linkFotoModal{{ $pemesanan->id }}">
-                                                    Masukkan Link Foto
+                                                    Masukkan Link Dokumetasi Edit
                                                 </button>
                                             @endif
                                         </td>

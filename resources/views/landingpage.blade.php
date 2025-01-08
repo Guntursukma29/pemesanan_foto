@@ -141,8 +141,12 @@
                             </p>
 
                             <div class="hero-buttons">
-                                <a href="#" class="btn btn-primary me-0 me-sm-2 mx-1">TRY IT NOW</a>
-                                {{-- <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+                                @auth
+                                {{-- Jika pengguna sudah login, tombol tidak akan muncul --}}
+                            @else
+                                {{-- Jika pengguna belum login, tampilkan tombol --}}
+                                <a href="{{ route('login') }}" class="btn btn-primary me-0 me-sm-2 mx-1">TRY IT NOW</a>
+                            @endauth                                {{-- <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
                                     class="btn btn-link mt-2 mt-sm-0 glightbox">
                                     <i class="bi bi-play-circle me-1"></i>
                                     Play Video

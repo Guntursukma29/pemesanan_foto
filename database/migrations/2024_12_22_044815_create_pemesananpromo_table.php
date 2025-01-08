@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->foreignId('id_fotografer')->nullable()->constrained('users')->onDelete('cascade'); // Relasi ke users dengan role fotografer, nullable
             $table->date('tanggal');
             $table->time('jam');
-            $table->string('alamat');
+            $table->string('alamat')->nullable();
             $table->text('catatan')->nullable();
             $table->enum('tempat', ['Indoor', 'Outdoor']);
             $table->enum('status_pemesanan', ['pending', 'proses', 'dokumentasi', 'selesai', 'batal'])->default('pending');

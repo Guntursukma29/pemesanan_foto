@@ -2,6 +2,34 @@
 
 @section('content')
     <div class="container">
+        <form method="GET" action="{{ route('admin.pemesanan.index') }}">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="bulan">Bulan:</label>
+                    <select name="bulan" id="bulan" class="form-control">
+                        @for ($i = 1; $i <= 12; $i++)
+                            <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" 
+                                {{ $bulan == $i ? 'selected' : '' }}>
+                                {{ date('F', mktime(0, 0, 0, $i, 10)) }}
+                            </option>
+                        @endfor
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="tahun">Tahun:</label>
+                    <select name="tahun" id="tahun" class="form-control">
+                        @for ($i = date('Y'); $i >= 2000; $i--)
+                            <option value="{{ $i }}" {{ $tahun == $i ? 'selected' : '' }}>
+                                {{ $i }}
+                            </option>
+                        @endfor
+                    </select>
+                </div>
+                <div class=" col-md-4 text-end">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+        </form>
         <div class="col grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
@@ -13,7 +41,9 @@
                                     <th>No</th>
                                     <th>Order ID</th>
                                     <th>Nama</th>
+                                    <th>Nama Paket</th>
                                     <th>Tanggal</th>
+                                    <th>Jam</th>
                                     <th>Fotografer</th>
                                     <th>Status Pemesanan</th>
                                     <th>Status Pembayaran</th>
@@ -27,20 +57,22 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $pemesanan->order_id }}</td>
                                     <td>{{ $pemesanan->user->name ?? '-' }}</td>
+                                    <td>{{ $pemesanan->paket->nama }}</td>
                                     <td>{{ $pemesanan->tanggal }}</td>
+                                    <td>{{ $pemesanan->jam }}</td>
                                     <td>{{ $pemesanan->fotografer->name ?? '-' }}</td>
                                         <td class="text-center">
                                             @if ($pemesanan->status_pemesanan === 'pending')
-                                            <span class="badge bg-warning">Menunggu Pembayaran</span>
-                                            @elseif($pemesanan->status_pemesanan === 'proses')
-                                            <span class="badge bg-info">Menunggu Pelaksanaan</span>
-                                            @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
-                                            <span class="badge bg-secondary">Menunggu Hasil Dokumentasi</span>
-                                            @elseif ($pemesanan->status_pemesanan === 'selesai')
-                                            <span class="badge bg-success">Selesai</span>
-                                            @else
-                                            <span class="badge bg-info">Menunggu Hasil Edit</span>
-                                            @endif
+                                                    <span class="badge bg-warning">Menunggu Pembayaran</span>
+                                                @elseif($pemesanan->status_pemesanan === 'proses')
+                                                    <span class="badge bg-info">Menunggu Pelaksanaan</span>
+                                                @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
+                                                    <span class="badge bg-secondary">Menunggu Hasil Dokumentasi</span>
+                                                @elseif ($pemesanan->status_pemesanan === 'batal')
+                                                    <span class="badge bg-info">Menunggu Hasil Edit</span>
+                                                @else
+                                                    <span class="badge bg-success">selesai</span>
+                                                @endif
                                         </td>
                                         <td>
                                             @if ($pemesanan->status_pembayaran === 'belum bayar')
@@ -113,12 +145,11 @@
                                                         @elseif($pemesanan->status_pemesanan === 'proses')
                                                             <span class="badge bg-info">Menunggu Pelaksanaan</span>
                                                         @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
-                                                            <span class="badge bg-secondary">Menunggu Hasil
-                                                                Dokumentasi</span>
-                                                        @elseif ($pemesanan->status_pemesanan === 'selesai')
-                                                            <span class="badge bg-success">Selesai</span>
-                                                        @else
+                                                            <span class="badge bg-secondary">Menunggu Hasil Dokumentasi</span>
+                                                        @elseif ($pemesanan->status_pemesanan === 'batal')
                                                             <span class="badge bg-info">Menunggu Hasil Edit</span>
+                                                        @else
+                                                            <span class="badge bg-success">selesai</span>
                                                         @endif
                                                     </p>
                                                     <p><strong>Status Pembayaran:</strong>

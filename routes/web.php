@@ -25,13 +25,14 @@ Route::get('/paketpromo', [LandingPageController::class, 'promo'])->name('promo'
 Route::get('/promo/{id}', [LandingPageController::class, 'show'])->name('promo.detail');
 Route::post('ulasan', [UlasanController::class, 'store'])->name('ulasan.store');
 Route::get('/paket', [PesanPaketController::class, 'index'])->name('paket.index');
+Route::post('/promo/delete-expired', [PromoController::class, 'deleteExpired'])->name('promo.deleteExpired');
 
 
 // Route untuk update profil
 Route::put('/profile/update/{id}', [UserController::class, 'update'])->name('profile.update');
 
-
 // Rute dengan autentikasi
+
 Route::middleware(['auth'])->group(function () {
     // Rute untuk Admin
     Route::middleware(['role:admin'])->prefix('admin')->group(function () {
@@ -42,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('fotografi', FotografiController::class);
         Route::get('/pemesanan/videografi', [PemesananVideografiController::class, 'adminIndex'])->name('admin.pemesanan.videografi.index');
         Route::get('/pemesanan', [PemesananController::class, 'indexAdmin'])->name('admin.pemesanan.index');
+         Route::get('/pemesanan/promo',[PemesananPromoController::class, 'adminIndex'])->name('admin.pemesanan.promo.index');
         Route::post('/videografer/assign/{id}', [PemesananVideografiController::class, 'assignFotografer'])->name('videografi.assign');
         Route::post('/fotografer/assign/{id}', [PemesananController::class, 'assignFotografer'])->name('fotografer.assign');
         Route::resource('promo', PromoController::class);
@@ -65,16 +67,17 @@ Route::middleware(['auth'])->group(function () {
 
     // Rute untuk Fotografer
     Route::middleware(['role:fotografer'])->prefix('fotografer')->group(function () {
-        Route::get('/fotografer/fotografi', [KaryawanController::class, 'pemesananFotografi'])->name('fotografer.fotografi');
-        Route::get('/fotografer/videografi', [KaryawanController::class, 'pemesananVideografi'])->name('fotografer.videografi');
-        Route::get('/fotografer/promo', [KaryawanController::class, 'pemesananPromo'])->name('fotografer.promo');        
+        Route::get('/fotografi', [KaryawanController::class, 'pemesananFotografi'])->name('fotografer.fotografi');
+        Route::get('/videografi', [KaryawanController::class, 'pemesananVideografi'])->name('fotografer.videografi');
+        Route::get('/promo', [KaryawanController::class, 'pemesananPromo'])->name('fotografer.promo');
         Route::put('/pemesanan/{id}/update-link-dokumentasi/{tipe}', [KaryawanController::class, 'updateLinkDokumentasi'])->name('pemesanan.updateLinkDokumentasi');
         Route::put('/pemesanan/videografi/{id}/update-link-dokumentasi/{tipe}', [KaryawanController::class, 'updateLinkDokumentasi'])->name('pemesanan.videografi.updateLinkDokumentasi');
-        Route::get('/profile/fotografer', [UserController::class, 'profileFotografer'])->name('profile.fotografer');
-        Route::put('fotografer/pemesanan/{id}/input-code-foto/{tipe}', [KaryawanController::class, 'inputCodeFoto'])->name('pemesanan.inputCodeFoto');
+        Route::get('/profile', [UserController::class, 'profileFotografer'])->name('profile.fotografer');
+        Route::put('/pemesanan/{id}/input-code-foto/{tipe}', [KaryawanController::class, 'inputCodeFoto'])->name('pemesanan.inputCodeFoto');
     });
 
-    // Rute untuk Customer
+    // Rute untuk Custome 
+    
     Route::middleware(['role:customer'])->prefix('customer')->group(function () {
         // Rute Pemesanan Videografi
         Route::prefix('videografi')->group(function () {

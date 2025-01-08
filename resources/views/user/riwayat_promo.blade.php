@@ -33,17 +33,17 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ ucfirst($pemesanan->promo->nama) }}</td>
                                             <td>Rp{{ number_format($pemesanan->promo->harga, 0, ',', '.') }}</td>
-                                            <td class="text-center">
+                                            <td>
                                                 @if ($pemesanan->status_pemesanan === 'pending')
                                                     <span class="badge bg-warning">Menunggu Pembayaran</span>
                                                 @elseif($pemesanan->status_pemesanan === 'proses')
                                                     <span class="badge bg-info">Menunggu Pelaksanaan</span>
                                                 @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
                                                     <span class="badge bg-secondary">Menunggu Hasil Dokumentasi</span>
-                                                @elseif ($pemesanan->status_pemesanan === 'selesai')
-                                                    <span class="badge bg-success">Selesai</span>
-                                                @else
+                                                @elseif ($pemesanan->status_pemesanan === 'batal')
                                                     <span class="badge bg-info">Menunggu Hasil Edit</span>
+                                                @else
+                                                    <span class="badge bg-success">selesai</span>
                                                 @endif
                                             </td>
                                             <td>
@@ -220,7 +220,7 @@
                                                                             <input type="text" class="form-control"
                                                                                 name="alamat"
                                                                                 value="{{ old('alamat', $pemesanan->alamat) }}"
-                                                                                required>
+                                                                                nullable>
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="tempat"
@@ -237,10 +237,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                            data-dismiss="modal">Tutup</button>
-                                                                        <button type="submit"
-                                                                            class="btn btn-primary">Simpan</button>
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                                        <button type="submit" class="btn btn-primary">Simpan</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -285,7 +283,7 @@
                                                                 <form action="{{ route('ulasan.store') }}" method="POST"
                                                                     enctype="multipart/form-data">
                                                                     @csrf
-                                                                    <input type="hidden" name="pemesanan_id"
+                                                                    <input type="hidden" name="pemesanan_promo_id"
                                                                         value="{{ $pemesanan->id }}">
                                                                     <input type="hidden" name="bintang"
                                                                         id="rating-value-{{ $pemesanan->id }}" required>

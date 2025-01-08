@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->foreignId('id_paket')->constrained('fotografi')->onDelete('cascade'); // Relasi ke paket
             $table->date('tanggal');
             $table->time('jam');
-            $table->string('alamat');
+            $table->string('alamat')->nullable();
             $table->text('catatan')->nullable();
             $table->enum('tempat', ['Indoor', 'Outdoor']);
             $table->enum('paket_jenis', ['special', 'platinum']); 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+-- <!DOCTYPE html>
 <html lang="id">
 
 <head>
@@ -8,16 +8,23 @@
 </head>
 
 <body>
-    <h2>Halo Bapak/Ibu {{ $data['name'] }},</h2>
-    <p>Ini adalah pengingat mengenai pemesanan Anda yang akan datang:</p>
-
-    <p><strong>Paket:</strong> {{ $data['Paket'] }}</p>
-    <p><strong>Tanggal:</strong> {{ $data['tanggal'] }}</p>
-    <p><strong>Jam:</strong> {{ $data['jam'] }}</p>
-    <p><strong>Tempat:</strong> {{ $data['tempat'] }}</p>
-
-    <p>Harap pastikan Anda tiba tepat waktu.</p>
-    <p>Terima kasih atas kepercayaan Anda.</p>
+    <div class="container">
+        <div class="header">
+            <h1>📸 Hai, {{ $data['name'] }}!</h1>
+        </div>
+        <p>Kami sangat senang mengingatkan bahwa pemesanan Anda telah dijadwalkan:</p>
+        <div class="details">
+            <p>✨ <strong>Paket:</strong> {{ $data['Paket'] }}</p>
+            <p>📅 <strong>Tanggal:</strong> {{ $data['tanggal'] }}</p>
+            <p>🕛 <strong>Jam:</strong> {{ $data['jam']  }}</p>
+            <p>📍 <strong>Lokasi:</strong> {{ $data['tempat'] }}</p>
+        </div>
+        <p>Kami tidak sabar untuk bertemu Anda dan menciptakan momen tak terlupakan bersama! Harap pastikan untuk tiba tepat waktu agar semuanya berjalan lancar.</p>
+        <div class="footer">
+            🌟 <strong>Terima kasih telah mempercayakan momen spesial Anda kepada kami!</strong><br>
+            <em>Sampai jumpa,</em><br>
+            <strong>Tim Clicks Studio</strong>
+        </div>
+    </div>
 </body>
-
 </html>

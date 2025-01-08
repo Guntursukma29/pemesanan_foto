@@ -36,7 +36,7 @@
                     <!-- Alamat -->
                     <div class="mb-3">
                         <label for="alamat" class="form-label">Alamat</label>
-                        <textarea class="form-control" id="alamat" name="alamat" required></textarea>
+                        <textarea class="form-control" id="alamat" name="alamat"></textarea>
                         <small>If you choose outdoor, please drop your link address here to specify the location</small>
                     </div>
 

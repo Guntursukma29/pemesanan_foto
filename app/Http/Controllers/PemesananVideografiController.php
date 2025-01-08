@@ -32,35 +32,56 @@ class PemesananVideografiController extends Controller
         $pemesanans = PemesananVideografi::with(['user', 'paket'])->where('id_user', Auth::id())->get();
         return view('user.riwayat_videografi', compact('pemesanans'));
     }
-    public function adminIndex()
+    public function adminIndex(Request $request)
     {
-        $pemesanans = PemesananVideografi::with(['user', 'paket', 'fotografer'])->get();
-
-        $totalHargaSpesial = $pemesanans
-        ->where('paket_jenis', 'special')
-        ->sum(fn ($item) => $item->paket->harga_special);
-
-    $totalHargaPlatinum = $pemesanans
-        ->where('paket_jenis', 'platinum')
-        ->sum(fn ($item) => $item->paket->harga_platinum);
+        // Ambil parameter bulan dan tahun dari request
+        $bulan = $request->input('bulan'); // Nilai antara 1-12
+        $tahun = $request->input('tahun'); // Format 4 digit, misal 2025
     
-
-    // Mengambil fotografer yang tidak sedang ditugaskan di Pemesanan, PemesananVideografi, dan PemesananPromo yang statusnya bukan 'selesai'
-    $fotografer = User::where('role', 'fotografer')
-        ->whereDoesntHave('pemesanan', function ($query) {
-            $query->where('status_pemesanan', '!=', 'selesai');
-        })
-        ->whereDoesntHave('pemesananVideografi', function ($query) {
-            $query->where('status_pemesanan', '!=', 'selesai');
-        })
-        ->whereDoesntHave('pemesananPromo', function ($query) {
-            $query->where('status_pemesanan', '!=', 'selesai');
-        })
-        ->get();
+        // Query dasar pemesanans
+        $pemesanans = PemesananVideografi::with(['user', 'paket', 'fotografer']);
+    
+        // Tambahkan filter jika bulan dan tahun dipilih
+        if ($bulan && $tahun) {
+            $pemesanans->whereMonth('tanggal', $bulan)
+                       ->whereYear('tanggal', $tahun);
+        } elseif ($tahun) {
+            $pemesanans->whereYear('tanggal', $tahun);
+        } elseif ($bulan) {
+            $pemesanans->whereMonth('tanggal', $bulan);
+        }
+    
+        // Eksekusi query dan ambil data
+        $pemesanans = $pemesanans->get();
+    
+        // Menghitung total harga berdasarkan jenis paket
+        $totalHargaSpesial = $pemesanans
+            ->where('paket_jenis', 'special')
+            ->sum(fn ($item) => $item->paket->harga_special ?? 0);
+    
+        $totalHargaPlatinum = $pemesanans
+            ->where('paket_jenis', 'platinum')
+            ->sum(fn ($item) => $item->paket->harga_platinum ?? 0);
+    
         $totalHargaKeseluruhan = $totalHargaSpesial + $totalHargaPlatinum;
-
-        return view('admin.pemesanan.videografi', compact('pemesanans', 'fotografer','totalHargaSpesial', 'totalHargaPlatinum', 'totalHargaKeseluruhan'));
+    
+        // Filter fotografer yang belum memiliki tugas
+        $fotografer = User::where('role', 'fotografer')
+            ->whereDoesntHave('pemesanan', function ($query) {
+                $query->where('status_pemesanan', '!=', 'selesai');
+            })
+            ->whereDoesntHave('pemesananVideografi', function ($query) {
+                $query->where('status_pemesanan', '!=', 'selesai');
+            })
+            ->whereDoesntHave('pemesananPromo', function ($query) {
+                $query->where('status_pemesanan', '!=', 'selesai');
+            })
+            ->get();
+    
+        // Return data ke view dengan parameter bulan dan tahun
+        return view('admin.pemesanan.videografi', compact('pemesanans', 'fotografer', 'totalHargaSpesial', 'totalHargaPlatinum', 'totalHargaKeseluruhan', 'bulan', 'tahun'));
     }
+    
 
 
 
@@ -117,11 +138,23 @@ class PemesananVideografiController extends Controller
         $request->validate([
             'tanggal' => 'required|date',
             'jam' => 'required',
-            'alamat' => 'required|string',
+            'alamat' => 'nullable|string',
             'tempat' => 'required|in:Indoor,Outdoor',
             'id_paket' => 'required|exists:videografi,id',
             'paket_jenis' => 'required|in:special,platinum',
         ]);
+
+        // Cek apakah sudah ada pemesanan di tanggal dan jam yang sama
+        $existingBooking = PemesananVideografi::where('tanggal', $request->tanggal)
+                                            ->where('jam', $request->jam)
+                                            ->where('status_pemesanan', '!=', 'cancelled') // Abaikan status cancelled
+                                            ->first();
+
+        if ($existingBooking) {
+            return redirect()->back()->withErrors([
+                'tanggal' => 'Maaf, sudah ada pemesanan di tanggal dan jam yang sama. Silakan pilih waktu lain.',
+            ])->withInput();
+        }
 
         $userId = Auth::id();
         $order_id = 'ORDER-' . $userId . '-' . time();
@@ -143,26 +176,43 @@ class PemesananVideografiController extends Controller
         return redirect()->route('pemesanans.videografi.index')->with('success', 'Pemesanan videografi berhasil dibuat.');
     }
 
+
     // Method untuk mengubah jadwal pemesanan
     public function ubahJadwal(Request $request, $id)
-    {
-        $request->validate([
-            'tanggal' => 'required|date',
-            'jam' => 'required',
-            'tempat' => 'required|in:Indoor,Outdoor',
-            'alamat' => 'required|string|max:255',
-        ]);
+{
+    $request->validate([
+        'tanggal' => 'required|date',
+        'jam' => 'required',
+        'tempat' => 'required|in:Indoor,Outdoor',
+        'alamat' => 'nullable|string|max:255',
+    ]);
 
-        $pemesanan = PemesananVideografi::findOrFail($id);
-        $pemesanan->update([
-            'tanggal' => $request->tanggal,
-            'jam' => $request->jam,
-            'tempat' => $request->tempat,
-            'alamat' => $request->alamat,
-        ]);
+    // Cari pemesanan yang ingin diubah
+    $pemesanan = Pemesanan::findOrFail($id);
 
-        return redirect()->route('pemesananvideografi.index')->with('success', 'Jadwal pemesanan berhasil diubah.');
+    // Cek apakah sudah ada pemesanan lain di tanggal dan jam yang sama
+    $existingBooking = Pemesanan::where('tanggal', $request->tanggal)
+                                ->where('jam', $request->jam)
+                                ->where('id', '!=', $pemesanan->id) // Pastikan bukan pemesanan yang sedang diubah
+                                ->where('status_pemesanan', '!=', 'selesai') // Abaikan pemesanan dengan status 'selesai'
+                                ->first();
+
+    if ($existingBooking) {
+        return redirect()->back()->withErrors([
+            'tanggal' => 'Maaf, jadwal ini sudah diambil. Silakan pilih waktu lain.',
+        ])->withInput();
     }
+
+    // Update pemesanan dengan jadwal baru
+    $pemesanan->update([
+        'tanggal' => $request->tanggal,
+        'jam' => $request->jam,
+        'tempat' => $request->tempat,
+        'alamat' => $request->alamat,
+    ]);
+
+    return redirect()->route('pemesanans.index')->with('success', 'Jadwal berhasil diubah.');
+}
 
     // Method untuk menghapus pemesanan
     public function destroy($id)

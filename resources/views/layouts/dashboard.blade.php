@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Purple Admin</title>
+    <title>Clicks Studio</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('admin/assets/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/vendors/css/vendor.bundle.base.css') }}">
@@ -125,63 +125,68 @@
                                     <li class="nav-item"> <a class="nav-link"
                                             href="{{ route('users.index') }}">User</a>
                                     </li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="pages/ui-features/typography.html">Pembayaran</a></li>
                                 </ul>
                             </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#ui-pemesanan" aria-expanded="false" aria-controls="ui-data"
-                                data-bs-toggle="collapse">
+                        </li><li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.pemesanan.videografi.index') ? 'active' : '' }}" href="#ui-pemesanan" aria-expanded="false" aria-controls="ui-data" data-bs-toggle="collapse">
                                 <span class="menu-title">Pemesanan</span>
                                 <i class="menu-arrow"></i>
                                 <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                             </a>
                             <div class="collapse" id="ui-pemesanan">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('admin.pemesanan.videografi.index') }}">Videografi</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('admin.pemesanan.index') }}">Fotografi</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('admin.pemesanan.promo.index') }}">Promo</a></li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->routeIs('admin.pemesanan.videografi.index') ? 'active' : '' }}" href="{{ route('admin.pemesanan.videografi.index') }}">Videografi</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->routeIs('admin.pemesanan.index') ? 'active' : '' }}" href="{{ route('admin.pemesanan.index') }}">Fotografi</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->routeIs('admin.pemesanan.promo.index') ? 'active' : '' }}" href="{{ route('admin.pemesanan.promo.index') }}">Promo</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
+                        
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                                aria-controls="ui-basic">
+                            <a class="nav-link {{ request()->routeIs('videografi.index') ? 'active' : '' }}" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                                 <span class="menu-title">Paket</span>
                                 <i class="menu-arrow"></i>
                                 <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                             </a>
                             <div class="collapse" id="ui-basic">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('videografi.index') }}">Videografi</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('fotografi.index') }}">Fotografi</a></li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->routeIs('videografi.index') ? 'active' : '' }}" href="{{ route('videografi.index') }}">Videografi</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->routeIs('fotografi.index') ? 'active' : '' }}" href="{{ route('fotografi.index') }}">Fotografi</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
+                        
                         <li class="nav-item">
-                            <a class="nav-link" href="#ui-dokumentasi" aria-expanded="false" aria-controls="ui-data"
-                                data-bs-toggle="collapse">
+                            <a class="nav-link {{ request()->routeIs('dokumentasi.videografi') ? 'active' : '' }}" href="#ui-dokumentasi" aria-expanded="false" aria-controls="ui-data" data-bs-toggle="collapse">
                                 <span class="menu-title">Dokumentasi</span>
                                 <i class="menu-arrow"></i>
                                 <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                             </a>
                             <div class="collapse" id="ui-dokumentasi">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('dokumentasi.videografi') }}">Videografi</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('dokumentasi.fotografi') }}">Fotografi</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('dokumentasi.promo') }}">Promo</a></li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->routeIs('dokumentasi.videografi') ? 'active' : '' }}" href="{{ route('dokumentasi.videografi') }}">Videografi</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->routeIs('dokumentasi.fotografi') ? 'active' : '' }}" href="{{ route('dokumentasi.fotografi') }}">Fotografi</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->routeIs('dokumentasi.promo') ? 'active' : '' }}" href="{{ route('dokumentasi.promo') }}">Promo</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
+                        
                         {{-- login sebagai role = fotografer --}}
                         {{-- end role = fotografer --}}
                         <li class="nav-item">

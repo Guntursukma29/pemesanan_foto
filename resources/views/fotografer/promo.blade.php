@@ -14,6 +14,7 @@
                                     <th>Order ID</th>
                                     <th>Nama</th>
                                     <th>Tanggal</th>
+                                    <th>Jam</th>
                                     <th>Status Pemesanan</th>
                                     <th>Link Dokumentasi</th>
                                     <th>Kode Foto Edit</th>
@@ -27,6 +28,7 @@
                                         <td>{{ $pemesanan->order_id }}</td>
                                         <td>{{ $pemesanan->user->name ?? '-' }}</td>
                                         <td>{{ $pemesanan->tanggal }}</td>
+                                        <td>{{ $pemesanan->jam }}</td>
                                         <td class="text-center">
                                             @if ($pemesanan->status_pemesanan === 'pending')
                                                     <span class="badge bg-warning">Menunggu Pembayaran</span>
@@ -71,7 +73,7 @@
                                                 <button type="button" class="btn btn-success btn-sm btn-rounded"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#linkFotoModal{{ $pemesanan->id }}">
-                                                    Input Link Foto
+                                                    Masukkan Link Dokumentasi Edit
                                                 </button>
                                             @endif
                                         </td>

@@ -34,18 +34,40 @@ class PemesananPromoController extends Controller
     }
 
 
-    public function adminIndex()
+    public function adminIndex(Request $request)
     {
-        $pemesanans = PemesananPromo::with(['user', 'promo', 'fotografer'])->get();
+        // Ambil parameter bulan dan tahun dari request
+        $bulan = $request->input('bulan'); // Nilai antara 1-12
+        $tahun = $request->input('tahun'); // Format 4 digit, misal 2025
+
+        // Query dasar pemesanans
+        $pemesanans = PemesananPromo::with(['user', 'promo', 'fotografer']);
+
+        // Tambahkan filter jika bulan dan tahun dipilih
+        if ($bulan && $tahun) {
+            $pemesanans->whereMonth('tanggal', $bulan)
+                    ->whereYear('tanggal', $tahun);
+        } elseif ($tahun) {
+            $pemesanans->whereYear('tanggal', $tahun);
+         } elseif ($bulan) {
+            $pemesanans->whereMonth('tanggal', $bulan);
+        }
+
+        // Eksekusi query dan ambil data
+        $pemesanans = $pemesanans->get();
+
+        // Menghitung total harga berdasarkan jenis paket
         $totalHargaSpesial = $pemesanans
-            ->where('paket_jenis', 'special')
-            ->sum(fn ($item) => $item->paket->harga_special);
+        ->where('paket_jenis', 'special')
+        ->sum(fn ($item) => $item->paket->harga_special ?? 0);
 
         $totalHargaPlatinum = $pemesanans
-            ->where('paket_jenis', 'platinum')
-            ->sum(fn ($item) => $item->paket->harga_platinum);
+        ->where('paket_jenis', 'platinum')
+        ->sum(fn ($item) => $item->paket->harga_platinum ?? 0);
+        
+        $totalHargaKeseluruhan = $totalHargaSpesial + $totalHargaPlatinum;
 
-        // Filter fotografer yang belum ditugaskan di semua pemesanan (promo, videografi, dan lainnya)
+        // Filter fotografer yang belum memiliki tugas
         $fotografer = User::where('role', 'fotografer')
             ->whereDoesntHave('pemesananPromo', function ($query) {
                 $query->where('status_pemesanan', '!=', 'selesai');
@@ -57,10 +79,20 @@ class PemesananPromoController extends Controller
                 $query->where('status_pemesanan', '!=', 'selesai');
             })
             ->get();
-            $totalHargaKeseluruhan = $totalHargaSpesial + $totalHargaPlatinum;
 
-        return view('admin.pemesanan.promo', compact('pemesanans', 'fotografer', 'fotografer','totalHargaSpesial', 'totalHargaPlatinum', 'totalHargaKeseluruhan'));
+        // Return data ke view dengan parameter bulan dan tahun
+        return view('admin.pemesanan.promo', compact('pemesanans', 'fotografer', 'totalHargaSpesial', 'totalHargaPlatinum', 'totalHargaKeseluruhan', 'bulan', 'tahun'));
     }
+    public function deleteExpired()
+    {
+        $today = Carbon::today();
+
+        // Hapus promo yang sudah berakhir
+        $expiredPromos = Promo::where('berakhir', '<', $today)->delete();
+
+        return redirect()->route('promo.index')->with('success', $expiredPromos . ' promo yang sudah berakhir telah dihapus.');
+    }
+
 
     public function assignFotografer(Request $request, $id)
     {
@@ -110,35 +142,46 @@ class PemesananPromoController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'tanggal' => 'required|date',
-        'jam' => 'required',
-        'alamat' => 'required|string',
-        'tempat' => 'required|in:Indoor,Outdoor',
-        'id_paket' => 'required|exists:promo,id',
-    ]);
-
-    $userId = Auth::id();
-    $order_id = 'ORDER-' . $userId . '-' . time() . '-' . uniqid();
-
-    // Simpan pemesanan ke database
-    $pemesanan = PemesananPromo::create([
-        'id_user' => $userId,
-        'id_paket' => $request->id_paket,
-        'tanggal' => $request->tanggal,
-        'jam' => $request->jam,
-        'alamat' => $request->alamat,
-        'tempat' => $request->tempat,
-        'status_pemesanan' => 'pending',
-        'status_pembayaran' => 'belum bayar',
-        'order_id' => $order_id,
-    ]);
-
-    return redirect()->route('pemesanans.promo.index')->with('success', 'Pemesanan promo berhasil dibuat.');
-}
-
-
+    {
+        $request->validate([
+            'tanggal' => 'required|date',
+            'jam' => 'required',
+            'alamat' => 'nullable|string',
+            'tempat' => 'required|in:Indoor,Outdoor',
+            'id_paket' => 'required|exists:promo,id',
+        ]);
+    
+        // Cek apakah sudah ada pemesanan di tanggal dan jam yang sama
+        $existingBooking = PemesananPromo::where('tanggal', $request->tanggal)
+                                         ->where('jam', $request->jam)
+                                         ->where('status_pemesanan', '!=', 'cancelled') // Status cancelled diabaikan
+                                         ->first();
+    
+        if ($existingBooking) {
+            return redirect()->back()->withErrors([
+                'tanggal' => 'Maaf, sudah ada pemesanan di tanggal dan jam yang sama. Silakan pilih waktu lain.',
+            ])->withInput();
+        }
+    
+        $userId = Auth::id();
+        $order_id = 'ORDER-' . $userId . '-' . time() . '-' . uniqid();
+    
+        // Simpan pemesanan ke database
+        $pemesanan = PemesananPromo::create([
+            'id_user' => $userId,
+            'id_paket' => $request->id_paket,
+            'tanggal' => $request->tanggal,
+            'jam' => $request->jam,
+            'alamat' => $request->alamat,
+            'tempat' => $request->tempat,
+            'status_pemesanan' => 'pending',
+            'status_pembayaran' => 'belum bayar',
+            'order_id' => $order_id,
+        ]);
+    
+        return redirect()->route('pemesanans.promo.index')->with('success', 'Pemesanan promo berhasil dibuat.');
+    }
+    
     // Method untuk mengubah jadwal pemesanan
     public function ubahJadwal(Request $request, $id)
     {
@@ -146,18 +189,34 @@ class PemesananPromoController extends Controller
             'tanggal' => 'required|date',
             'jam' => 'required',
             'tempat' => 'required|in:Indoor,Outdoor',
-            'alamat' => 'required|string|max:255',
+            'alamat' => 'nullable|string|max:255',
         ]);
-
-        $pemesanan = PemesananPromo::findOrFail($id);
+    
+        // Cari pemesanan yang ingin diubah
+        $pemesanan = Pemesanan::findOrFail($id);
+    
+        // Cek apakah sudah ada pemesanan lain di tanggal dan jam yang sama
+        $existingBooking = Pemesanan::where('tanggal', $request->tanggal)
+                                    ->where('jam', $request->jam)
+                                    ->where('id', '!=', $pemesanan->id) // Pastikan bukan pemesanan yang sedang diubah
+                                    ->where('status_pemesanan', '!=', 'selesai') // Abaikan pemesanan dengan status 'selesai'
+                                    ->first();
+    
+        if ($existingBooking) {
+            return redirect()->back()->withErrors([
+                'tanggal' => 'Maaf, jadwal ini sudah diambil. Silakan pilih waktu lain.',
+            ])->withInput();
+        }
+    
+        // Update pemesanan dengan jadwal baru
         $pemesanan->update([
             'tanggal' => $request->tanggal,
             'jam' => $request->jam,
             'tempat' => $request->tempat,
             'alamat' => $request->alamat,
         ]);
-
-        return redirect()->route('pemesanans.promo.index')->with('success', 'Jadwal pemesanan berhasil diubah.');
+    
+        return redirect()->route('pemesanans.index')->with('success', 'Jadwal berhasil diubah.');
     }
 
     // Method untuk menghapus pemesanan
@@ -236,8 +295,7 @@ class PemesananPromoController extends Controller
         }
 
         // Redirect ke route untuk pemesanan promo
-        return redirect()->route('admin.pemesanan.promo.index')
-            ->with('success', 'Reminder untuk pemesanan promo berhasil dikirim.');
+        return redirect()->route('admin.pemesanan.promo.index')->with('success', 'Reminder untuk pemesanan promo berhasil dikirim.');
     }
     public function masukkanKodeFoto(Request $request, $id)
     {

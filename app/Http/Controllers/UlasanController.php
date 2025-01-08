@@ -34,7 +34,7 @@ class UlasanController extends Controller
         return view('admin.ulasan.create', compact('users', 'pemesanan', 'pemesananVideografi', 'pemesananPromo'));
     }
 
-    public function store(Request $request)
+        public function store(Request $request)
     {
         // Validasi input
         $request->validate([
@@ -58,28 +58,28 @@ class UlasanController extends Controller
         // Simpan data ulasan
         $ulasan = Ulasan::create([
             'user_id' => $user_id, // Menggunakan user_id yang didapat dari pengguna yang sedang login
-            'pemesanan_id' => $request->pemesanan_id,
-            'pemesanan_videografi_id' => $request->pemesanan_videografi_id,
-            'pemesanan_promo_id' => $request->pemesanan_promo_id,
+            'pemesanan_id' => $request->pemesanan_id ?? null, // Jika tidak ada, set null
+            'pemesanan_videografi_id' => $request->pemesanan_videografi_id ?? null,
+            'pemesanan_promo_id' => $request->pemesanan_promo_id ?? null,
             'foto' => $fotoPath,
             'bintang' => $request->bintang,
             'catatan' => $request->catatan,
             'status' => 'tampilkan',
-
         ]);
 
-        // Tentukan route tujuan berdasarkan jenis pemesanan
+        // Tentukan route tujuan berdasarkan jenis pemesanan yang ada (jika ada)
         if ($request->pemesanan_id) {
             return redirect()->route('pemesanans.index')->with('success', 'Ulasan berhasil ditambahkan.');
         } elseif ($request->pemesanan_videografi_id) {
-            return redirect()->route('pemesanan.videografi.index')->with('success', 'Ulasan berhasil ditambahkan.');
+            return redirect()->route('pemesanans.videografi.index')->with('success', 'Ulasan berhasil ditambahkan.');
         } elseif ($request->pemesanan_promo_id) {
-            return redirect()->route('pemesanan.promo.index')->with('success', 'Ulasan berhasil ditambahkan.');
+            return redirect()->route('pemesanans.promo.index')->with('success', 'Ulasan berhasil ditambahkan.');
         }
 
-        // Jika tidak ada pemesanan yang valid, arahkan kembali ke halaman sebelumnya
-        return redirect()->back()->with('error', 'Gagal menambahkan ulasan.');
+        // Jika tidak ada pemesanan yang valid, arahkan ke halaman ulasan umum
+        return redirect()->route('ulasan.index')->with('success', 'Ulasan berhasil ditambahkan.');
     }
+
     public function sembunyikan($id)
     {
         // Cari ulasan berdasarkan ID
