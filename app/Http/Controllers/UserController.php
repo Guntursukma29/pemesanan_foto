@@ -104,7 +104,7 @@ class UserController extends Controller
             );
         }
 
-        return redirect()->back()->with('success', 'Data pengguna berhasil diperbarui.');
+        return redirect()->route('users.index')->with('success', 'Data pengguna berhasil diperbarui.');
     }
 
     // Mengupdate data pengguna

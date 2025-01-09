@@ -11,6 +11,7 @@ class Customer extends Model
 
     // Tentukan nama tabel jika berbeda dari nama model (Laravel secara otomatis mengasumsikan tabel bernama 'customers')
     protected $table = 'customers';
+    protected $primaryKey = 'user_id';
 
     // Tentukan kolom yang dapat diisi (mass assignable)
     protected $fillable = [
