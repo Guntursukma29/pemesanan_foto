@@ -95,7 +95,7 @@
                                                         Ubah Fotografer
                                                     </button>
                                                     <form method="POST"
-                                                        action="{{ route('reminder.pemesanan', $pemesanan->id) }}"
+                                                        action="{{ route('reminder.promo', $pemesanan->id) }}"
                                                         class="d-inline">
                                                         @csrf
                                                         <button type="submit" class="btn btn-sm btn-info">Kirim
