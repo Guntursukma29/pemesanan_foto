@@ -11,17 +11,15 @@
 
     <!-- Favicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
     <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
     <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 
     <!-- Fonts -->
@@ -142,11 +140,12 @@
 
                             <div class="hero-buttons">
                                 @auth
-                                {{-- Jika pengguna sudah login, tombol tidak akan muncul --}}
-                            @else
-                                {{-- Jika pengguna belum login, tampilkan tombol --}}
-                                <a href="{{ route('login') }}" class="btn btn-primary me-0 me-sm-2 mx-1">TRY IT NOW</a>
-                            @endauth                                {{-- <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+                                    {{-- Jika pengguna sudah login, tombol tidak akan muncul --}}
+                                @else
+                                    {{-- Jika pengguna belum login, tampilkan tombol --}}
+                                    <a href="{{ route('login') }}" class="btn btn-primary me-0 me-sm-2 mx-1">TRY IT
+                                        NOW</a>
+                                @endauth {{-- <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
                                     class="btn btn-link mt-2 mt-sm-0 glightbox">
                                     <i class="bi bi-play-circle me-1"></i>
                                     Play Video
@@ -157,8 +156,7 @@
 
                     <div class="col-lg-6">
                         <div class="hero-image" data-aos="zoom-out" data-aos-delay="300">
-                            <img src="{{ asset('assets/img/foto.jpg') }}" alt="Hero Image"
-                                class="img-fluid">
+                            <img src="{{ asset('assets/img/foto.jpg') }}" alt="Hero Image" class="img-fluid">
 
                             {{-- <div class="customers-badge">
                                 <div class="customer-avatars">
@@ -193,10 +191,15 @@
                     <div class="col-xl-5" data-aos="fade-up" data-aos-delay="200">
                         <span class="about-meta">TENTANG KAMI</span>
                         {{-- <h2 class="about-title">Voluptas enim suscipit temporibus</h2> --}}
-                        <p class="about-description">Clicks Studio merupakan sebuah jasa layanan fotografi dan videografi yang
-                            beroperasi dikota malang tepatnya di Jln. Kenangah Indah g1b Blok Harmoni No. 18-20 Rt 1/Rw.6 Kelurahan Jatimulyo, Kecamatan Lowokmaru, Kabupaten Malang, Jawa Timur.
+                        <p class="about-description">Clicks Studio merupakan sebuah jasa layanan fotografi dan
+                            videografi yang
+                            beroperasi dikota malang tepatnya di Jln. Kenangah Indah g1b Blok Harmoni No. 18-20 Rt
+                            1/Rw.6 Kelurahan Jatimulyo, Kecamatan Lowokmaru, Kabupaten Malang, Jawa Timur.
                         </p>
-                        <p class="about-description">Kami telah melayani pelanggan dengan berbagai layanan fotografi dan videografi, meliputi pre-wedding, wisuda, birthday, serta berbagai event lainnya. Dengan tim yang terdiri dari fotografer dan videografer berpengalaman, kami menyediakan berbagai paket layanan yang dapat disesuaikan dengan kebutuhan Anda, seperti
+                        <p class="about-description">Kami telah melayani pelanggan dengan berbagai layanan fotografi
+                            dan videografi, meliputi pre-wedding, wisuda, birthday, serta berbagai event lainnya. Dengan
+                            tim yang terdiri dari fotografer dan videografer berpengalaman, kami menyediakan berbagai
+                            paket layanan yang dapat disesuaikan dengan kebutuhan Anda, seperti
 
                         <div class="row feature-list-wrapper">
                             <div class="col-md-6">
@@ -253,43 +256,40 @@
                                 <p>Of experience in business service</p>
                             </div>
                         </div> --}}
+                        </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
 
         </section><!-- /About Section -->
 
         <section id="clients" class="clients section">
             <div class="container" data-aos="fade-up" data-aos-delay="100">
                 <h3 class="text-center">Portofolio</h3>
-        
+
                 <!-- Swiper Slider -->
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
                         @foreach ($portofolio as $item)
                             <div class="swiper-slide">
-                                <img src="{{ asset('storage/' . $item->foto) }}" 
-                                class="img-fluid" 
-                                alt="Portofolio Foto" 
-                                width="300" 
-                                height="200">                           
-                             </div>
+                                <img src="{{ asset('storage/' . $item->foto) }}" class="img-fluid"
+                                    alt="Portofolio Foto" width="300" height="200">
+                            </div>
                         @endforeach
                     </div>
-        
+
                     <!-- Navigation Arrows -->
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
-        
+
                     <!-- Pagination -->
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
-        
+
             <!-- Swiper Initialization -->
             <script>
-                document.addEventListener("DOMContentLoaded", function () {
+                document.addEventListener("DOMContentLoaded", function() {
                     const swiper = new Swiper(".mySwiper", {
                         loop: true,
                         autoplay: {
@@ -328,8 +328,8 @@
                 });
             </script>
         </section>
-        
-        
+
+
 
 
 
@@ -483,7 +483,8 @@
                                 <h3>Apakah saya akan mendapatkan file hasil foto dan video secara digital?</h3>
                                 {{-- ini jawaban --}}
                                 <div class="faq-content">
-                                    <p>Iya, semua file hasil foto dan video akan dikirimkan dalam format digital melalui link gdrive.</p>
+                                    <p>Iya, semua file hasil foto dan video akan dikirimkan dalam format digital melalui
+                                        link gdrive.</p>
                                 </div>
                                 <i class="faq-toggle bi bi-chevron-right"></i>
                             </div><!-- End Faq item-->
@@ -491,7 +492,8 @@
                             <div class="faq-item">
                                 <h3>Berapa lama waktu yang dibutuhkan untuk pengeditan hasil foto atau video??</h3>
                                 <div class="faq-content">
-                                    <p>Waktu editing tergantung pada jenis paket dan jumlah foto/video yang diambil. Rata-rata, hasil dokumentasi dapat diselesaikan dalam waktu 2-3 hari.</p>
+                                    <p>Waktu editing tergantung pada jenis paket dan jumlah foto/video yang diambil.
+                                        Rata-rata, hasil dokumentasi dapat diselesaikan dalam waktu 2-3 hari.</p>
                                 </div>
                                 <i class="faq-toggle bi bi-chevron-right"></i>
                             </div><!-- End Faq item-->
@@ -499,7 +501,9 @@
                             <div class="faq-item">
                                 <h3> Apakah saya bisa meminta revisi pada hasil foto atau video?</h3>
                                 <div class="faq-content">
-                                    <p> Ya, kami menyediakan opsi revisi sesuai dengan paket yang Anda pilih. Untuk mengetahui detail lebih lanjut mengenai revisi yang termasuk dalam setiap paket, silakan cek informasi di halaman paket layanan kami.
+                                    <p> Ya, kami menyediakan opsi revisi sesuai dengan paket yang Anda pilih. Untuk
+                                        mengetahui detail lebih lanjut mengenai revisi yang termasuk dalam setiap paket,
+                                        silakan cek informasi di halaman paket layanan kami.
                                     </p>
                                 </div>
                                 <i class="faq-toggle bi bi-chevron-right"></i>
@@ -508,7 +512,10 @@
                             <div class="faq-item">
                                 <h3>Bagaimana cara melakukan pemesanan jasa di website ini?</h3>
                                 <div class="faq-content">
-                                    <p>Anda dapat melakukan pemesanan dengan memilih paket yang tersedia di halaman layanan kami, mengisi formulir pemesanan, dan memilih tanggal yang tersedia sesuai kebutuhan Anda. Setelah itu, Anda akan diarahkan untuk melakukan pembayaran secara online.</p>
+                                    <p>Anda dapat melakukan pemesanan dengan memilih paket yang tersedia di halaman
+                                        layanan kami, mengisi formulir pemesanan, dan memilih tanggal yang tersedia
+                                        sesuai kebutuhan Anda. Setelah itu, Anda akan diarahkan untuk melakukan
+                                        pembayaran secara online.</p>
                                 </div>
                                 <i class="faq-toggle bi bi-chevron-right"></i>
                             </div><!-- End Faq item-->
@@ -516,7 +523,8 @@
                             <div class="faq-item">
                                 <h3>Apakah ada promo atau diskon yang tersedia?</h3>
                                 <div class="faq-content">
-                                    <p>Informasi terkait promo atau diskon dapat dilihat di halaman promo di website kami. Jangan lupa untuk mengecek secara berkala!
+                                    <p>Informasi terkait promo atau diskon dapat dilihat di halaman promo di website
+                                        kami. Jangan lupa untuk mengecek secara berkala!
                                     </p>
                                 </div>
                                 <i class="faq-toggle bi bi-chevron-right"></i>
@@ -525,7 +533,8 @@
                             <div class="faq-item">
                                 <h3>Apakah saya bisa mengubah jadwal pemesanan?</h3>
                                 <div class="faq-content">
-                                    <p>Anda hanya dapat mengubah jadwal pemesanan sebelum melakukan pembayaran. Setelah pembayaran dilakukan, jadwal yang telah ditentukan tidak dapat diubah.</p>
+                                    <p>Anda hanya dapat mengubah jadwal pemesanan sebelum melakukan pembayaran. Setelah
+                                        pembayaran dilakukan, jadwal yang telah ditentukan tidak dapat diubah.</p>
                                 </div>
                                 <i class="faq-toggle bi bi-chevron-right"></i>
                             </div><!-- End Faq item-->
@@ -554,7 +563,7 @@
                         <p>Kecamatan Lowokmaru, Kabupaten Malang, Jawa Timur.</p>
                     </div>
                 </div>
-    
+
                 <!-- Footer Layanan -->
                 <div class="col-lg-4 col-md-6 footer-links ">
                     <h4>Layanan</h4>
@@ -567,7 +576,7 @@
                         <li><a href="#">Event</a></li>
                     </ul>
                 </div>
-    
+
                 <!-- Footer Kontak -->
                 <div class="col-lg-4 col-md-6 footer-links ">
                     <h4>Kontak Kami</h4>
@@ -575,40 +584,42 @@
                         <!-- Logo Instagram -->
                         <div class="d-flex align-items-center mb-3">
                             <!-- Logo Instagram -->
-                            <a href="https://www.instagram.com/clicks._studio?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" style="text-decoration: none; margin-right: 10px;">
+                            <a href="https://www.instagram.com/clicks._studio?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                                style="text-decoration: none; margin-right: 10px;">
                                 <svg width="40" height="40" viewBox="0 0 200 200">
                                     <defs>
                                         <!-- 矩形的線性漸層 -->
                                         <linearGradient id="gradient1" x1=".8" y1=".8" x2="0">
-                                            <stop offset="0" stop-color="#c92bb7"/>
-                                            <stop offset="1" stop-color="#3051f1"/>
+                                            <stop offset="0" stop-color="#c92bb7" />
+                                            <stop offset="1" stop-color="#3051f1" />
                                         </linearGradient>
                                         <!-- 矩形的放射漸層 -->
                                         <radialGradient id="gradient2" cx=".2" cy="1" r="1.2">
-                                            <stop offset="0" stop-color="#fcdf8f"/>
-                                            <stop offset=".1" stop-color="#fbd377"/>
-                                            <stop offset=".25" stop-color="#fa8e37"/>
-                                            <stop offset=".35" stop-color="#f73344"/>
+                                            <stop offset="0" stop-color="#fcdf8f" />
+                                            <stop offset=".1" stop-color="#fbd377" />
+                                            <stop offset=".25" stop-color="#fa8e37" />
+                                            <stop offset=".35" stop-color="#f73344" />
                                             <stop offset=".65" stop-color="#f73344" stop-opacity="0" />
                                         </radialGradient>
                                         <!-- 矩形外框 -->
-                                        <rect id="logoContainer" x="0" y="0" width="200" height="200" rx="50" ry="50" />
+                                        <rect id="logoContainer" x="0" y="0" width="200" height="200"
+                                            rx="50" ry="50" />
                                     </defs>
-                            
+
                                     <!-- colorful 的背景 -->
                                     <use xlink:href="#logoContainer" fill="url(#gradient1)" />
                                     <use xlink:href="#logoContainer" fill="url(#gradient2)" />
-                            
+
                                     <!-- 相機外框 -->
                                     <rect x="35" y="35" width="130" height="130" rx="30" ry="30"
-                                          fill="none" stroke="#fff" stroke-width="13" />
-                            
+                                        fill="none" stroke="#fff" stroke-width="13" />
+
                                     <!-- 鏡頭外框 -->
-                                    <circle cx="100" cy="100" r="32"
-                                            fill="none" stroke="#fff" stroke-width="13" />
-                            
+                                    <circle cx="100" cy="100" r="32" fill="none" stroke="#fff"
+                                        stroke-width="13" />
+
                                     <!-- 閃光燈 -->
-                                    <circle cx="140" cy="62" r="9" fill="#fff"/>
+                                    <circle cx="140" cy="62" r="9" fill="#fff" />
                                 </svg>
                             </a>
                             <!-- Tulisan -->
@@ -616,11 +627,17 @@
                                 <strong>Instagram:</strong> clicks.studio
                             </p>
                         </div>
-                        
+
                         <!-- Logo WhatsApp -->
                         <div class="d-flex align-items-center mb-3">
                             <a href="https://wa.me/6285290602986" style="text-decoration: none;">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="IconChangeColor" height="40" width="40"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M224 122.8c-72.7 0-131.8 59.1-131.9 131.8 0 24.9 7 49.2 20.2 70.1l3.1 5-13.3 48.6 49.9-13.1 4.8 2.9c20.2 12 43.4 18.4 67.1 18.4h.1c72.6 0 133.3-59.1 133.3-131.8 0-35.2-15.2-68.3-40.1-93.2-25-25-58-38.7-93.2-38.7zm77.5 188.4c-3.3 9.3-19.1 17.7-26.7 18.8-12.6 1.9-22.4.9-47.5-9.9-39.7-17.2-65.7-57.2-67.7-59.8-2-2.6-16.2-21.5-16.2-41s10.2-29.1 13.9-33.1c3.6-4 7.9-5 10.6-5 2.6 0 5.3 0 7.6.1 2.4.1 5.7-.9 8.9 6.8 3.3 7.9 11.2 27.4 12.2 29.4s1.7 4.3.3 6.9c-7.6 15.2-15.7 14.6-11.6 21.6 15.3 26.3 30.6 35.4 53.9 47.1 4 2 6.3 1.7 8.6-1 2.3-2.6 9.9-11.6 12.5-15.5 2.6-4 5.3-3.3 8.9-2 3.6 1.3 23.1 10.9 27.1 12.9s6.6 3 7.6 4.6c.9 1.9.9 9.9-2.4 19.1zM400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM223.9 413.2c-26.6 0-52.7-6.7-75.8-19.3L64 416l22.5-82.2c-13.9-24-21.2-51.3-21.2-79.3C65.4 167.1 136.5 96 223.9 96c42.4 0 82.2 16.5 112.2 46.5 29.9 30 47.9 69.8 47.9 112.2 0 87.4-72.7 158.5-160.1 158.5z" id="mainIconPathAttribute" fill="green"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="IconChangeColor"
+                                    height="40"
+                                    width="40"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                    <path
+                                        d="M224 122.8c-72.7 0-131.8 59.1-131.9 131.8 0 24.9 7 49.2 20.2 70.1l3.1 5-13.3 48.6 49.9-13.1 4.8 2.9c20.2 12 43.4 18.4 67.1 18.4h.1c72.6 0 133.3-59.1 133.3-131.8 0-35.2-15.2-68.3-40.1-93.2-25-25-58-38.7-93.2-38.7zm77.5 188.4c-3.3 9.3-19.1 17.7-26.7 18.8-12.6 1.9-22.4.9-47.5-9.9-39.7-17.2-65.7-57.2-67.7-59.8-2-2.6-16.2-21.5-16.2-41s10.2-29.1 13.9-33.1c3.6-4 7.9-5 10.6-5 2.6 0 5.3 0 7.6.1 2.4.1 5.7-.9 8.9 6.8 3.3 7.9 11.2 27.4 12.2 29.4s1.7 4.3.3 6.9c-7.6 15.2-15.7 14.6-11.6 21.6 15.3 26.3 30.6 35.4 53.9 47.1 4 2 6.3 1.7 8.6-1 2.3-2.6 9.9-11.6 12.5-15.5 2.6-4 5.3-3.3 8.9-2 3.6 1.3 23.1 10.9 27.1 12.9s6.6 3 7.6 4.6c.9 1.9.9 9.9-2.4 19.1zM400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM223.9 413.2c-26.6 0-52.7-6.7-75.8-19.3L64 416l22.5-82.2c-13.9-24-21.2-51.3-21.2-79.3C65.4 167.1 136.5 96 223.9 96c42.4 0 82.2 16.5 112.2 46.5 29.9 30 47.9 69.8 47.9 112.2 0 87.4-72.7 158.5-160.1 158.5z"
+                                        id="mainIconPathAttribute" fill="green"></path>
+                                </svg>
                             </a>
                             <p class="mt-2"><strong>WhatsApp :</strong> +6285290602986</p>
                         </div>
@@ -628,18 +645,19 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="container copyright text-center mt-4">
-            <p>© <span>Copyright</span> <strong class="px-1 sitename">Clicks Studio</strong> <span>All Rights Reserved</span></p>
+            <p>© <span>Copyright</span> <strong class="px-1 sitename">Clicks Studio</strong> <span>All Rights
+                    Reserved</span></p>
         </div>
-    
+
     </footer>
-    
+
 
     <!-- Scroll Top -->
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.1/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.1/swiper-bundle.min.js"></script>
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -650,12 +668,12 @@
     <script src="{{ asset('assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    
+
     <!-- Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             new Swiper('.swiper-container', {

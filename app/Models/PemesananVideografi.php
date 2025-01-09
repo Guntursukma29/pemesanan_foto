@@ -39,6 +39,6 @@ class PemesananVideografi extends Model
     }
         public function videografi()
     {
-        return $this->belongsTo(Videografi::class, 'videografi_id');
+        return $this->belongsTo(Videografi::class, 'id_paket');
     }
 }

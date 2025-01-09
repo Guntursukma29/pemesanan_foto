@@ -29,7 +29,7 @@ Route::post('/promo/delete-expired', [PromoController::class, 'deleteExpired'])-
 
 
 // Route untuk update profil
-Route::put('/profile/update/{id}', [UserController::class, 'update'])->name('profile.update');
+Route::put('/profile/update/{id}', [UserController::class, 'updateProfile'])->name('profile.update');
 
 // Rute dengan autentikasi
 

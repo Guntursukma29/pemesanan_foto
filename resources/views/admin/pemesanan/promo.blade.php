@@ -8,8 +8,7 @@
                     <label for="bulan">Bulan:</label>
                     <select name="bulan" id="bulan" class="form-control">
                         @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" 
-                                {{ $bulan == $i ? 'selected' : '' }}>
+                            <option value="{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}" {{ $bulan == $i ? 'selected' : '' }}>
                                 {{ date('F', mktime(0, 0, 0, $i, 10)) }}
                             </option>
                         @endfor
@@ -62,54 +61,54 @@
                                         <td>{{ $pemesanan->jam }}</td>
                                         <td>
                                             @if ($pemesanan->status_pemesanan === 'pending')
-                                                    <span class="badge bg-warning">Menunggu Pembayaran</span>
-                                                @elseif($pemesanan->status_pemesanan === 'proses')
-                                                    <span class="badge bg-info">Menunggu Pelaksanaan</span>
-                                                @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
-                                                    <span class="badge bg-secondary">Menunggu Hasil Dokumentasi</span>
-                                                @elseif ($pemesanan->status_pemesanan === 'batal')
-                                                    <span class="badge bg-info">Menunggu Hasil Edit</span>
-                                                @else
-                                                    <span class="badge bg-success">selesai</span>
-                                                @endif
+                                                <span class="badge bg-warning">Menunggu Pembayaran</span>
+                                            @elseif($pemesanan->status_pemesanan === 'proses')
+                                                <span class="badge bg-info">Menunggu Pelaksanaan</span>
+                                            @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
+                                                <span class="badge bg-secondary">Menunggu Hasil Dokumentasi</span>
+                                            @elseif ($pemesanan->status_pemesanan === 'batal')
+                                                <span class="badge bg-info">Menunggu Hasil Edit</span>
+                                            @else
+                                                <span class="badge bg-success">selesai</span>
+                                            @endif
                                         </td>
                                         <td>
                                             <span
-                                            class="badge {{ $pemesanan->status_pembayaran === 'belum bayar' ? 'bg-warning' : 'bg-success' }}">
-                                            {{ ucfirst($pemesanan->status_pembayaran) }}
-                                        </span>
-                                    </td>
-                                    <td>{{ $pemesanan->fotografer->name ?? '-' }}</td>
-                                    <td>Rp {{ number_format($pemesanan->promo->harga, 0, ',', '.') }}</td>
+                                                class="badge {{ $pemesanan->status_pembayaran === 'belum bayar' ? 'bg-warning' : 'bg-success' }}">
+                                                {{ ucfirst($pemesanan->status_pembayaran) }}
+                                            </span>
+                                        </td>
+                                        <td>{{ $pemesanan->fotografer->name ?? '-' }}</td>
+                                        <td>Rp {{ number_format($pemesanan->promo->harga, 0, ',', '.') }}</td>
                                         <td>
                                             <!-- Tombol untuk membuka modal detail -->
                                             <button type="button" class="btn btn-rounded btn-primary btn-sm"
                                                 data-bs-toggle="modal" data-bs-target="#detailModal{{ $pemesanan->id }}">
                                                 Detail
                                             </button>
-                                            
-                                        @if ($pemesanan->status_pemesanan !== 'selesai')
-                                            @if ($pemesanan->fotografer)
-                                                <button type="button" class="btn btn-sm btn-warning"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#inputFotograferModal{{ $pemesanan->id }}">
-                                                    Ubah Fotografer
-                                                </button>
-                                                <form method="POST"
-                                                action="{{ route('reminder.pemesanan', $pemesanan->id) }}"
-                                                class="d-inline">
-                                                @csrf
-                                                <button type="submit" class="btn btn-sm btn-info">Kirim
-                                                    Reminder</button>
-                                            </form>
-                                            @elseif ($pemesanan->status_pemesanan === 'proses' && $pemesanan->status_pembayaran === 'dibayar')
-                                                <button type="button" class="btn btn-sm btn-success"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#inputFotograferModal{{ $pemesanan->id }}">
-                                                    Input Fotografer
-                                                </button>
+
+                                            @if ($pemesanan->status_pemesanan !== 'selesai')
+                                                @if ($pemesanan->fotografer)
+                                                    <button type="button" class="btn btn-sm btn-warning"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#inputFotograferModal{{ $pemesanan->id }}">
+                                                        Ubah Fotografer
+                                                    </button>
+                                                    <form method="POST"
+                                                        action="{{ route('reminder.pemesanan', $pemesanan->id) }}"
+                                                        class="d-inline">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-sm btn-info">Kirim
+                                                            Reminder</button>
+                                                    </form>
+                                                @elseif ($pemesanan->status_pemesanan === 'proses' && $pemesanan->status_pembayaran === 'dibayar')
+                                                    <button type="button" class="btn btn-sm btn-success"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#inputFotograferModal{{ $pemesanan->id }}">
+                                                        Input Fotografer
+                                                    </button>
+                                                @endif
                                             @endif
-                                        @endif
                                         </td>
                                     </tr>
                                     <div class="modal fade" id="detailModal{{ $pemesanan->id }}" tabindex="-1"
@@ -137,7 +136,8 @@
                                                         @elseif($pemesanan->status_pemesanan === 'proses')
                                                             <span class="badge bg-info">Menunggu Pelaksanaan</span>
                                                         @elseif ($pemesanan->status_pemesanan === 'dokumentasi')
-                                                            <span class="badge bg-secondary">Menunggu Hasil Dokumentasi</span>
+                                                            <span class="badge bg-secondary">Menunggu Hasil
+                                                                Dokumentasi</span>
                                                         @elseif ($pemesanan->status_pemesanan === 'batal')
                                                             <span class="badge bg-info">Menunggu Hasil Edit</span>
                                                         @else
@@ -164,7 +164,8 @@
                                     <div class="modal fade" id="inputFotograferModal{{ $pemesanan->id }}" tabindex="-1"
                                         aria-labelledby="inputFotograferModalLabel{{ $pemesanan->id }}" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form method="POST" action="{{ route('admin.pemesanan.promo.assign', $pemesanan->id) }}">
+                                            <form method="POST"
+                                                action="{{ route('admin.pemesanan.promo.assign', $pemesanan->id) }}">
                                                 @csrf
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -200,18 +201,10 @@
                                 @endforeach
                             </tbody>
                             <tfoot>
-                                    <tr>
-                                        <td colspan="7">Total Harga Pemesanan Paket Spesial</td>
-                                        <td colspan="2">Rp {{ number_format($totalHargaSpesial, 0, ',', '.') }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="7">Total Harga Pemesanan Paket Platinum</td>
-                                        <td colspan="2">Rp {{ number_format($totalHargaPlatinum, 0, ',', '.') }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="7">Total Pendapatan</td>
-                                        <td colspan="2">Rp {{ number_format($totalHargaKeseluruhan, 0, ',', '.') }}</td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="9">Total Pendapatan</td>
+                                    <td colspan="2">Rp {{ number_format($totalHargaKeseluruhan, 0, ',', '.') }}</td>
+                                </tr>
                             </tfoot>
                         </table>
                     </div>

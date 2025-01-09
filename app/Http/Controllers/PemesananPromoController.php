@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Midtrans\Snap;
 use App\Models\User;
 use Midtrans\Config;
@@ -56,16 +57,8 @@ class PemesananPromoController extends Controller
         // Eksekusi query dan ambil data
         $pemesanans = $pemesanans->get();
 
-        // Menghitung total harga berdasarkan jenis paket
-        $totalHargaSpesial = $pemesanans
-        ->where('paket_jenis', 'special')
-        ->sum(fn ($item) => $item->paket->harga_special ?? 0);
-
-        $totalHargaPlatinum = $pemesanans
-        ->where('paket_jenis', 'platinum')
-        ->sum(fn ($item) => $item->paket->harga_platinum ?? 0);
-        
-        $totalHargaKeseluruhan = $totalHargaSpesial + $totalHargaPlatinum;
+        // Hitung total harga keseluruhan dari semua pemesanan
+        $totalHargaKeseluruhan = $pemesanans->sum(fn($item) => $item->promo->harga ?? 0);
 
         // Filter fotografer yang belum memiliki tugas
         $fotografer = User::where('role', 'fotografer')
@@ -81,7 +74,7 @@ class PemesananPromoController extends Controller
             ->get();
 
         // Return data ke view dengan parameter bulan dan tahun
-        return view('admin.pemesanan.promo', compact('pemesanans', 'fotografer', 'totalHargaSpesial', 'totalHargaPlatinum', 'totalHargaKeseluruhan', 'bulan', 'tahun'));
+        return view('admin.pemesanan.promo', compact('pemesanans', 'fotografer', 'totalHargaKeseluruhan', 'bulan', 'tahun'));
     }
     public function deleteExpired()
     {
